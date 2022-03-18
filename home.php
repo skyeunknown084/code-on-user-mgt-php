@@ -6,7 +6,7 @@ if($_SESSION['login_type'] != 1)
 ?>
 <?php 
 if(isset($_GET['id'])){
-	$qry = $conn->query("SELECT * FROM accounts where id = ".$_GET['id'])->fetch_array();
+	$qry = $conn->query("SELECT * FROM users where id = ".$_GET['id'])->fetch_array();
 	foreach($qry as $k => $v){
 		$$k = $v;
 	}
@@ -32,10 +32,10 @@ if(isset($_GET['id'])){
     ?>
     <div class="row">
         <div class="col">
-            <h1><?php echo ucwords($row['reg_firstname']) ?></h1>
-            <h1><?php echo ucwords($row['reg_lastname']) ?></h1>
-            <h1><?php echo ucwords($row['email_add']) ?></h1>
-            <h1><?php echo date("Y-m-d",strtotime($row['date_created'])) ?></h1>
+            <h3><?php echo ucwords($row['reg_firstname']) ?></h3>
+            <h3><?php echo ucwords($row['reg_lastname']) ?></h3>
+            <h3><?php echo ucwords($row['email_add']) ?></h3>
+            <h3><?php echo date("Y-m-d",strtotime($row['date_created'])) ?></h3>
         </div>
     </div>
     <?php endwhile ?>
