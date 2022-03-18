@@ -1,0 +1,335 @@
+@import url(https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700);
+:root {
+    --lavander: #A265E6;
+    --aquamarine: #94F7CF;
+    --light-cyan: #cbe7e7;
+    --cadet-grey: #8c9a9e;
+    --solid-silver: #747578;
+    --white: #ffffff;
+    --black: #000000;
+    --whitesmoke: #fefefe;
+
+    --purple: #7209b7;
+    --dark-purple: #560bad;
+    --ocean-green: #b9fbc0;
+    --teagreen: #d3fac7;
+    --magicmint: #b4ebca;
+    --celeste: #bcf4f5;
+    
+    --white: #ffffff;
+    --whitesmoke: #fefefe;
+    --black: #000000;
+    --blackish: #222222;
+    --navy: #030095;
+}
+.navbar-light {
+    background-color: var(--aquamarine) !important;
+    color: var(--lavander) !important;
+}
+.nav-brand {
+    color: var(--whitesmoke);
+}
+.nav-brand-box {
+    background-color: var(--lavander);
+    color: white !important;
+    font-size: 24px;
+    padding: 0 0.5rem;
+    margin: 0;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 6px;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+.nav-link {
+    text-transform: uppercase !important;
+}
+
+/* Index CSS */
+.banner-img-container {
+    height: 500px;
+    padding: 0;
+    margin: 0;
+}
+.img-banner {
+    background-image:url('../img/banner-illustration-php.png');
+    background-color: var(--lavander) !important;
+    background-repeat:no-repeat;
+    background-size: contain;
+    max-width: 100%;
+    max-height: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    /* height: 70vh; */
+}
+
+/* StartFund CSS */
+@media (max-width:499px) {
+.startfund-form {
+    padding: 0 30px;
+}
+}
+#register, #login-form {
+    padding: 5% 0;
+    background-color: var(--white);
+    /* background: url("../../assets/img/background.png") no-repeat; */
+    background-size: cover;
+}
+
+#login-form{
+    padding: 10% 0;
+}
+
+#register .upload-profile-image{
+    position: relative;
+    width: 10%;
+    margin-left: auto;
+    margin-right: auto;
+    transition: filter .8s ease;
+}
+
+#register .upload-profile-image:hover{
+    filter: drop-shadow(1px 1px 22px var(--lavander));
+}
+@media (min-width:500px) {
+.img-upload-box {
+    width: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin: 0 auto;
+}
+}
+@media (max-width:499px) {
+.img-upload-box {
+    width: 100%;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin: 0 auto;
+}
+}
+
+#register .upload-profile-image .camera-icon{
+    position: absolute;
+    top: 70px;
+    width: 60px !important;
+    filter: invert(30%) !important;
+}
+
+#register .upload-profile-image:hover .camera-icon{
+    filter: invert(100%) !important;
+}
+
+#reg-form input[type='text'],
+#reg-form input[type='email'],
+#reg-form input[type='password'],
+#reg-form input[type='text'],
+#reg-form input[type='email'],
+#reg-form input[type='password'],
+#reg-form input[type='number'],
+#reg-form input[type='date']{
+    border: none !important;
+    border-radius: unset !important;
+    color: var(--blackish) !important;
+    border-bottom: 1px solid var(--lavander) !important;
+    font-family: var(--lavander) !important;
+}
+
+#reg-form input[type='text']::placeholder,
+#reg-form input[type='email']::placeholder,
+#reg-form input[type='password']::placeholder,
+#reg-form input[type='text']::placeholder,
+#reg-form input[type='email']::placeholder,
+#reg-form input[type='password']::placeholder,
+#reg-form input[type='number']::placeholder,
+#reg-form input[type='date']::placeholder{
+    color: var(--blackish) !important;
+    font-weight: 400 !important;
+}
+
+#reg-form input[type='text'],
+#reg-form input[type='email'],
+#reg-form input[type='password'],
+#reg-form input[type='text'],
+#reg-form input[type='email'],
+#reg-form input[type='password'],
+#reg-form input[type='number'],
+#reg-form input[type='date']{
+    outline: none;
+    box-shadow: none;
+}
+
+.custom-file-input {
+color: transparent;
+}
+.custom-file-input::-webkit-file-upload-button {
+visibility: hidden;
+}
+@media (max-width:499px) {
+.custom-file-input::before {
+    content: 'Upload A Photo';
+    color: var(--white);
+    display: inline-block;
+    background: var(--lavander);
+    border-radius: 25px;
+    padding: 8px 25px;
+    outline: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    cursor: pointer;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    width: 80%;
+    position: relative;
+    margin: 0 auto;
+    font-weight: 500;
+    font-size: 13pt;
+}
+}
+@media (min-width:500px) {
+.custom-file-input::before {
+    content: 'Upload A Photo';
+    color: var(--white);
+    display: inline-block;
+    background: var(--lavander);
+    border-radius: 25px;
+    padding: 8px 20px;
+    outline: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    cursor: pointer;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    width: 50%;
+    position: relative;
+    margin: 0 auto;
+    font-weight: 500;
+    font-size: 13pt;
+}
+}
+.custom-file-input:hover::before {
+border-color: none;
+}
+.custom-file-input:active {
+outline: 0;
+}
+.custom-file-input:active::before {
+background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9); 
+}
+#ImgFileUpload {
+  margin: 0;
+  border: 0;
+  padding: 0;
+}
+@media (max-width: 450px) {
+  .avatar-profile {
+    height:350px !important;
+  }
+}
+@media (min-width: 401px) {
+  .avatar-profile {
+    height:450px;
+  }
+}
+/* Donate CSS */
+
+/* Donees CSS */
+.donee-photo {
+    /* background-image: url('https://www.w3schools.com/css/img_lights.jpg'); */
+    width: 100%;
+    height: 300px;
+}
+/* Contact CSS */
+.contactform-background {
+    background-image: url('../img/contactform-ms.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 4px;
+    position: relative;
+    height: 65vh !important;
+  }
+  .form-row {
+    justify-content: center;
+    align-items: center;
+    padding: 35px;
+    margin-top: 1px;
+    position: relative;
+  }
+  .col-lg-10 {
+    padding: 0px;
+  }
+
+  /* Register Page */
+  #regForm {
+    background-color: #ffffff;
+    margin: 100px auto;
+    padding: 40px;
+    width: 70%;
+    min-width: 300px;
+  }
+  
+  h1 {
+    text-align: center;  
+  }
+  
+  input {
+    padding: 10px;
+    width: 100%;
+    font-size: 17px;
+    border: 1px solid #aaaaaa;
+  }
+  
+  /* Mark input boxes that gets an error on validation: */
+  input.invalid {
+    background-color: #ffdddd;
+  }
+  
+  /* Hide all steps by default: */
+  .tab {
+    display: none;
+  }
+  
+  button {
+    background-color: #04AA6D;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 17px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    opacity: 0.8;
+  }
+  
+  #prevBtn {
+    background-color: #bbbbbb;
+  }
+  
+  /* Make circles that indicate the steps of the form: */
+  .step {
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbbbbb;
+    border: none;  
+    border-radius: 50%;
+    display: inline-block;
+    opacity: 0.5;
+  }
+  
+  .step.active {
+    opacity: 1;
+  }
+  
+  /* Mark the steps that are finished and valid: */
+  .step.finish {
+    background-color: #04AA6D;
+  }
