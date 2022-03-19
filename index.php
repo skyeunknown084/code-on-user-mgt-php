@@ -1,4 +1,17 @@
-<?php session_start(); error_reporting(0); ?>
+<?php 
+session_start();
+// if(!isset($_SESSION['login_id']))
+// header('location:login.php');
+include 'db_connect.php';
+ob_start();
+if(!isset($_SESSION['system'])){
+    $system = $conn->query("SELECT * FROM system_settings")->fetch_array();
+    foreach($system as $k => $v){
+    $_SESSION['system'][$k] = $v;
+    }
+}
+ob_end_flush();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <?php include 'header.php' ?>
@@ -7,7 +20,9 @@
     <header class="default-header">
         <nav class="navbar navbar-expand-lg navbar-light bg-white bb-aquamarine d-flex fixed-top nav-shadow">
             <div class="container-fluid">
-                <a class="navbar-brand nav-brand-box ms-3" href="<?php base() ?>home"><span class="text-aquamarine text-underline fw-700 fs-larger ms-2"></span></a>
+                <a class="navbar-brand nav-brand-box ms-3" href="<?php base() ?>home"><span class="text-aquamarine text-underline fw-700 fs-larger ms-2">
+                <?php echo ucwords($_SESSION['system']['name']) ?>
+                </span></a>
                 <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#toggleNavbar" aria-controls="toggleNavbar" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button> -->

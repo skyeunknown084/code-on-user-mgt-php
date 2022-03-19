@@ -1,3 +1,7 @@
+<!-- SweetAlert2 -->
+<script src="assets/plugins/sweetalert2/sweetalert2.min.js"></script>
+<!-- Toastr -->
+<script src="assets/plugins/toastr/toastr.min.js"></script>
 <!-- DateTimePicker -->
 <script src="assets/dist/js/jquery.datetimepicker.full.min.js"></script>
 

@@ -28,4 +28,92 @@ Class Action {
 			return 2;
 		}
 	}
+
+	function save_account(){
+		extract($_POST);
+		$data = "";
+		foreach($_POST as $k => $v){
+			if(!in_array($k, array('id','cpass','password')) && !is_numeric($k)){
+				if(empty($data)){
+					$data .= " $k='$v' ";
+				}else{
+					$data .= ", $k='$v' ";
+				}
+			}
+		}
+		if(!empty($password)){
+			$data .= ", password=md5('$password') ";
+		}
+		$check = $this->db->query("SELECT * FROM accounts where email_add ='$email_add' ".(!empty($id) ? " and id != {$id} " : ''))->num_rows;
+		if($check > 0){
+			return 2;
+			exit;
+		}
+		if(isset($_FILES['img']) && $_FILES['img']['tmp_name'] != ''){
+			$fname = strtotime(date('y-m-d H:i')).'_'.$_FILES['img']['name'];
+			$move = move_uploaded_file($_FILES['img']['tmp_name'],'assets/uploads/'. $fname);
+			$data .= ", avatar = '$fname' ";
+
+		}
+		if(empty($id)){
+			$save = $this->db->query("INSERT INTO accounts set $data");
+		}else{
+			$save = $this->db->query("UPDATE accounts set $data where id = $id");
+		}
+
+		if($save){
+			return 1;
+		}
+	}
+	
+	function signup(){
+		extract($_POST);
+		$data = "";
+		foreach($_POST as $k => $v){
+			if(!in_array($k, array('id','cpass')) && !is_numeric($k)){
+				if($k =='password'){
+					if(empty($v))
+						continue;
+					$v = md5($v);
+
+				}
+				if(empty($data)){
+					$data .= " $k='$v' ";
+				}else{
+					$data .= ", $k='$v' ";
+				}
+			}
+		}
+
+		$check = $this->db->query("SELECT * FROM users where email ='$email' ".(!empty($id) ? " and id != {$id} " : ''))->num_rows;
+		if($check > 0){
+			return 2;
+			exit;
+		}
+		if(isset($_FILES['img']) && $_FILES['img']['tmp_name'] != ''){
+			$fname = strtotime(date('y-m-d H:i')).'_'.$_FILES['img']['name'];
+			$move = move_uploaded_file($_FILES['img']['tmp_name'],'assets/uploads/'. $fname);
+			$data .= ", avatar = '$fname' ";
+
+		}
+		if(empty($id)){
+			$save = $this->db->query("INSERT INTO users set $data");
+
+		}else{
+			$save = $this->db->query("UPDATE users set $data where id = $id");
+		}
+
+		if($save){
+			if(empty($id))
+				$id = $this->db->insert_id;
+			foreach ($_POST as $key => $value) {
+				if(!in_array($key, array('id','cpass','password')) && !is_numeric($key))
+					$_SESSION['login_'.$key] = $value;
+			}
+					$_SESSION['login_id'] = $id;
+				if(isset($_FILES['img']) && !empty($_FILES['img']['tmp_name']))
+					$_SESSION['login_avatar'] = $fname;
+			return 1;
+		}
+	}
 }

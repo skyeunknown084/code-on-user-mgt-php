@@ -15,5 +15,21 @@ if($action == 'logout'){
 	if($logout)
 		echo $logout;
 }
+if($action == 'signup'){
+	$save = $crud->signup();
+	if($save)
+		echo $save;
+}
+if($action == 'save_user'){
+	$save = $crud->save_user();
+	if($save)
+		echo $save;
+}
+if($action == 'save_account'){
+	$save = $crud->save_account();
+	if($save)
+		echo $save;
+}
+// end call
 ob_end_flush();
 ?>

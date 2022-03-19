@@ -1,3 +1,3 @@
 <?php 
 
-$conn= new mysqli('localhost','root','','test')or die("Could not connect to mysql".mysqli_error($conn));
+$conn= new mysqli('localhost','root','','francisr_abuloydb')or die("Could not connect to mysql".mysqli_error($conn));

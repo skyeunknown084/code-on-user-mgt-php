@@ -4,12 +4,12 @@
 // session_start();
 include('./db_connect.php');
 ob_start();
-// if(!isset($_SESSION['system'])){
+if(!isset($_SESSION['system'])){
   $system = $conn->query("SELECT * FROM system_settings")->fetch_array();
   foreach($system as $k => $v){
     $_SESSION['system'][$k] = $v;
   }
-// }
+}
 ob_end_flush();
 ?>
 <?php 
@@ -22,7 +22,7 @@ header("location:home");
   <div class="login-title">
     <a href="#" class="login-title-link text-black">
       <img src="assets/img/work-on-logo.png" class="logo-img" alt="Logo">
-      <b class="login-title-name"><?php echo $_SESSION['system']['name'] ?></b>
+      <b class="login-title-name text-black"><?php echo $_SESSION['system']['name'] ?></b>
     </a>
   </div>
   <div class="login-body">
