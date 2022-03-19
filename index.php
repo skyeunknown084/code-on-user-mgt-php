@@ -1,5 +1,6 @@
 <?php 
 session_start();
+error_reporting(0);
 // if(!isset($_SESSION['login_id']))
 // header('location:login.php');
 include 'db_connect.php';
