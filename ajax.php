@@ -5,6 +5,7 @@ date_default_timezone_set("Asia/Manila");
 $action = $_GET['action'];
 include 'api.php';
 $crud = new Action();
+
 if($action == 'login'){
 	$login = $crud->login();
 	if($login)
@@ -27,6 +28,16 @@ if($action == 'save_user'){
 }
 if($action == 'save_account'){
 	$save = $crud->save_account();
+	if($save)
+		echo $save;
+}
+if($action == 'save_admin_account'){
+	$save = $crud->save_admin_account();
+	if($save)
+		echo $save;
+}
+if($action == 'save_my_donate'){
+	$save = $crud->save_my_donate();
 	if($save)
 		echo $save;
 }

@@ -5,12 +5,14 @@ error_reporting(0);
 // header('location:login.php');
 include 'db_connect.php';
 ob_start();
+// Get System Datas
 if(!isset($_SESSION['system'])){
     $system = $conn->query("SELECT * FROM system_settings")->fetch_array();
     foreach($system as $k => $v){
     $_SESSION['system'][$k] = $v;
     }
 }
+// Get User Datas
 ob_end_flush();
 ?>
 <!DOCTYPE html>
@@ -24,9 +26,9 @@ ob_end_flush();
                 <a class="navbar-brand nav-brand-box ms-3" href="<?php base() ?>home"><span class="text-aquamarine text-underline fw-700 fs-larger ms-2">
                 <?php echo ucwords($_SESSION['system']['name']) ?>
                 </span></a>
-                <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#toggleNavbar" aria-controls="toggleNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#toggleNavbar" aria-controls="toggleNavbar" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
-                </button> -->
+                </button>
                 <?php include 'navbar.php' ?>
             </div>
         </nav>

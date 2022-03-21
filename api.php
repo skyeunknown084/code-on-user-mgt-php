@@ -17,7 +17,7 @@ Class Action {
 
 	function login(){
 		extract($_POST);
-			$qry = $this->db->query("SELECT *,concat(firstname,' ',lastname) as name FROM users where email = '".$email."' and password = '".md5($password)."'  ");
+			$qry = $this->db->query("SELECT *,concat(reg_firstname,' ',reg_lastname) as name FROM accounts where email_add = '".$email_add."' and password = '".md5($password)."'  ");
 		if($qry->num_rows > 0){
 			foreach ($qry->fetch_array() as $key => $value) {
 				if($key != 'password' && !is_numeric($key))
@@ -27,6 +27,14 @@ Class Action {
 		}else{
 			return 2;
 		}
+	}
+
+	function logout(){
+		session_destroy();
+		foreach ($_SESSION as $key => $value) {
+			unset($_SESSION[$key]);
+		}
+		header("location:login");
 	}
 
 	function save_account(){
@@ -44,7 +52,45 @@ Class Action {
 		if(!empty($password)){
 			$data .= ", password=md5('$password') ";
 		}
-		$check = $this->db->query("SELECT * FROM accounts where email_add ='$email_add' ".(!empty($id) ? " and id != {$id} " : ''))->num_rows;
+		$check = $this->db->query("SELECT * FROM accounts where email_add ='$email_add' and d_firstname ='$d_firstname' and d_lastname ='$d_lastname' ".(!empty($id) ? " and id != {$id} " : ''))->num_rows;
+		if(mysqli_num_rows($check) >= 1){
+			$_SESSION['messages'] = 'First Name, Middle Name and Last Name already registered';
+			return 2;
+			exit;
+		}
+		if(isset($_FILES['img']) && $_FILES['img']['tmp_name'] != ''){
+			$fname = strtotime(date('y-m-d H:i')).'_'.$_FILES['img']['name'];
+			$move = move_uploaded_file($_FILES['img']['tmp_name'],'assets/uploads/'. $fname);
+			$data .= ", avatar = '$fname' ";
+
+		}
+		if(empty($id)){
+			$save = $this->db->query("INSERT INTO accounts set $data");
+		}else{
+			$save = $this->db->query("UPDATE accounts set $data where id = $id");
+		}
+
+		if($save){
+			return 1;
+		}
+	}
+
+	function save_admin_account(){
+		extract($_POST);
+		$data = "";
+		foreach($_POST as $k => $v){
+			if(!in_array($k, array('id','cpass','password')) && !is_numeric($k)){
+				if(empty($data)){
+					$data .= " $k='$v' ";
+				}else{
+					$data .= ", $k='$v' ";
+				}
+			}
+		}
+		if(!empty($password)){
+			$data .= ", password=md5('$password') ";
+		}
+		$check = $this->db->query("SELECT * FROM accounts where email_add ='$email_add' and d_firstname ='$d_firstname' and d_lastname ='$d_lastname' ".(!empty($id) ? " and id != {$id} " : ''))->num_rows;
 		if($check > 0){
 			return 2;
 			exit;
@@ -65,54 +111,43 @@ Class Action {
 			return 1;
 		}
 	}
-	
-	function signup(){
+
+	function save_my_donate(){
 		extract($_POST);
 		$data = "";
-		foreach($_POST as $k => $v){
-			if(!in_array($k, array('id','cpass')) && !is_numeric($k)){
-				if($k =='password'){
-					if(empty($v))
-						continue;
-					$v = md5($v);
-
-				}
-				if(empty($data)){
-					$data .= " $k='$v' ";
-				}else{
-					$data .= ", $k='$v' ";
-				}
-			}
-		}
-
-		$check = $this->db->query("SELECT * FROM users where email ='$email' ".(!empty($id) ? " and id != {$id} " : ''))->num_rows;
+		$check = $this->db->query("SELECT * FROM gcash_payments where account_id ='$account_id' ".(!empty($id) ? " and id != {$id} " : ''))->num_rows;
 		if($check > 0){
 			return 2;
 			exit;
 		}
-		if(isset($_FILES['img']) && $_FILES['img']['tmp_name'] != ''){
-			$fname = strtotime(date('y-m-d H:i')).'_'.$_FILES['img']['name'];
-			$move = move_uploaded_file($_FILES['img']['tmp_name'],'assets/uploads/'. $fname);
-			$data .= ", avatar = '$fname' ";
-
-		}
 		if(empty($id)){
-			$save = $this->db->query("INSERT INTO users set $data");
-
+			$save = $this->db->query("INSERT INTO accounts set $data");
 		}else{
-			$save = $this->db->query("UPDATE users set $data where id = $id");
+			$save = $this->db->query("UPDATE accounts set $data where id = $id");
 		}
 
 		if($save){
-			if(empty($id))
-				$id = $this->db->insert_id;
-			foreach ($_POST as $key => $value) {
-				if(!in_array($key, array('id','cpass','password')) && !is_numeric($key))
-					$_SESSION['login_'.$key] = $value;
-			}
-					$_SESSION['login_id'] = $id;
-				if(isset($_FILES['img']) && !empty($_FILES['img']['tmp_name']))
-					$_SESSION['login_avatar'] = $fname;
+			return 1;
+		}
+	}
+
+	function save_gcash_donate(){
+		extract($_POST);
+		$data = "";
+		extract($_POST);
+		$data = "";
+		$check = $this->db->query("SELECT * FROM gcash_payments where account_id ='$account_id' ".(!empty($id) ? " and id != {$id} " : ''))->num_rows;
+		if($check > 0){
+			return 2;
+			exit;
+		}
+		if(empty($id)){
+			$save = $this->db->query("INSERT INTO accounts set $data");
+		}else{
+			$save = $this->db->query("UPDATE accounts set $data where id = $id");
+		}
+
+		if($save){
 			return 1;
 		}
 	}

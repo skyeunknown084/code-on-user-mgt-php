@@ -4,12 +4,12 @@
 // }
    
 ?>
-<section id="register" class="pt-5">    
-    <legend class="text-lavander text-center fw-bold pt-5">Create an Account</legend>
+<section id="register pt-0" class="pt-5 mt-5">    
+    <legend class="text-lavander text-center fw-bold mt-5 pt-5">Create an Account</legend>
     <div class="d-flex justify-content-center px-3 py-0">
-        <div class="col-lg-12 container pb-5">
+        <div class="col-lg-12 container">
             <div class="card card-outline card-success">
-                <div class="form-row hide">
+                <div class="form-row">
                 <?php
                     if(isset($_SESSION['messages']))
                     {
@@ -30,11 +30,11 @@
                             <div class="col-md-6 mx-auto">
                                 <div class="form-group">
                                     <label for="" class="control-label">First Name</label>
-                                    <input type="text" name="reg_firstname" class="form-control form-control-sm" required value="<?php echo isset($reg_firstname) ? $reg_firstname : '' ?>">
+                                    <input type="text" name="reg_firstname" class="form-control form-control-sm" required value="<?php echo isset($reg_firstname) ? $reg_firstname : $reg_firstname  ?>">
                                 </div>
                                 <div class="form-group">
                                     <label for="" class="control-label">Last Name</label>
-                                    <input type="text" name="reg_lastname" class="form-control form-control-sm" required value="<?php echo isset($reg_firstname) ? $reg_firstname : '' ?>">
+                                    <input type="text" name="reg_lastname" class="form-control form-control-sm" required value="<?php echo isset($reg_lastname) ? $reg_lastname : $reg_lastname ?>">
                                 </div>
                                 <div class="form-group hide">
                                     <label for="" class="control-label hide">User Role</label>
@@ -45,12 +45,12 @@
                             <div class="col-md-6 mx-auto">
                                 <div class="form-group">
                                     <label class="control-label">Phone Number</label>
-                                    <input type="text" class="form-control form-control-sm" name="phone_number" required value="<?php echo isset($phone_number) ? $phone_number : '' ?>">
+                                    <input type="text" class="form-control form-control-sm" name="phone_number" required value="<?php echo isset($phone_number) ? $phone_number : $phone_number ?>">
                                     
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">Email</label>
-                                    <input type="email" class="form-control form-control-sm" name="email_add" required value="<?php echo isset($email_add) ? $email_add : '' ?>">
+                                    <input type="email" class="form-control form-control-sm" name="email_add" required value="<?php echo isset($email_add) ? $email_add : $email_add ?>">
                                     <small id="#msg"></small>
                                 </div>
                                 <div class="form-group">
@@ -117,7 +117,7 @@
                         <hr>
                         <div class="col-lg-12 text-right justify-content-center d-flex">
                             <button type="submit" class="btn btn-primary mr-2">Save</button>
-                            <button class="btn btn-secondary" type="button" onclick="location.href = '<?php base() ?>profile'">Cancel</button>
+                            <button class="btn btn-secondary" type="button" onclick="location.href = '<?php base() ?>home'">Cancel</button>
                         </div>
                     </form>
                 </div>

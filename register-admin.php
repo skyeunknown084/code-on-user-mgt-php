@@ -4,12 +4,12 @@
 // }
    
 ?>
-<section id="register" class="pt-5">    
-    <legend class="text-lavander text-center fw-bold pt-5">Create an Account</legend>
+<section id="register pt-0" class="pt-1 mt-5">    
+    <legend class="text-lavander text-center fw-bold mt-5 pt-5">Create an Admin Account</legend>
     <div class="d-flex justify-content-center px-3 py-0">
-        <div class="col-lg-12 container pb-5">
+        <div class="col-lg-12 container">
             <div class="card card-outline card-success">
-                <div class="form-row hide">
+                <div class="form-row text-black hide">
                 <?php
                     if(isset($_SESSION['messages']))
                     {
@@ -38,7 +38,7 @@
                                 </div>
                                 <div class="form-group hide">
                                     <label for="" class="control-label hide">User Role</label>
-                                    <input type="hidden" name="type" value="2">                                    
+                                    <input type="hidden" name="type" value="1">                                    
                                 </div>
                                 
                             </div>
@@ -117,7 +117,7 @@
                         <hr>
                         <div class="col-lg-12 text-right justify-content-center d-flex">
                             <button type="submit" class="btn btn-primary mr-2">Save</button>
-                            <button class="btn btn-secondary" type="button" onclick="location.href = '<?php base() ?>profile'">Cancel</button>
+                            <button class="btn btn-secondary" type="button" onclick="location.href = '<?php base() ?>home'">Cancel</button>
                         </div>
                     </form>
                 </div>

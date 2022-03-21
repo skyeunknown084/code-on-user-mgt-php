@@ -30,7 +30,7 @@ header("location:home");
       <div class="card-body login-card-body">      
         <form action="" id="login-form">
           <div class="input-group mb-3">
-            <input type="email" class="form-control" name="email" required placeholder="Email">
+            <input type="email" class="form-control" name="email_add" required placeholder="Email Address">
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-envelope"></span>

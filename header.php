@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="assets/dist/css/custom.css">
     <link rel="stylesheet" href="assets/dist/css/main.css">
     <link rel="stylesheet" href="assets/dist/css/style.css">    
+    <link rel="stylesheet" href="assets/dist/css/scrollbar.css">    
     <!-- JQuery -->
     <script src="assets/plugins/jquery/jquery.min.js"></script>
     <!-- jQuery UI 1.11.4 -->
