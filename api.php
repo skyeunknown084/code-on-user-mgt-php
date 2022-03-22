@@ -37,7 +37,7 @@ Class Action {
 		header("location:login");
 	}
 
-	function save_account(){
+	function save_user(){
 		extract($_POST);
 		$data = "";
 		foreach($_POST as $k => $v){
@@ -52,7 +52,28 @@ Class Action {
 		if(!empty($password)){
 			$data .= ", password=md5('$password') ";
 		}
-		$check = $this->db->query("SELECT * FROM accounts where email_add ='$email_add' and d_firstname ='$d_firstname' and d_lastname ='$d_lastname' ".(!empty($id) ? " and id != {$id} " : ''))->num_rows;
+		$check = $this->db->query("SELECT * FROM users where email ='$email' ".(!empty($id) ? " and id != {$id} " : ''))->num_rows;
+		if(mysqli_num_rows($check) >= 1){
+			$_SESSION['messages'] = 'Email already registered';
+			return 2;
+			exit;
+		}
+		if(empty($id)){
+			$save = $this->db->query("INSERT INTO users set $data");
+		}else{
+			$save = $this->db->query("UPDATE users set $data where id = $id");
+		}
+
+		if($save){
+			return 1;
+		}
+	}
+
+
+	function save_account(){
+		extract($_POST);
+		$data = "";
+		$check = $this->db->query("SELECT * FROM accounts where d_firstname ='$d_firstname' and d_lastname ='$d_lastname' ".(!empty($id) ? " and id != {$id} " : ''))->num_rows;
 		if(mysqli_num_rows($check) >= 1){
 			$_SESSION['messages'] = 'First Name, Middle Name and Last Name already registered';
 			return 2;

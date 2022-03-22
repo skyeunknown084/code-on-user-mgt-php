@@ -17,60 +17,39 @@ if(isset($_SESSION['login_id']))
 header("location:home");
 ?>
 <?php include 'header.php' ?>
-<body class="hold-transition login-page login-bg">
-<div class="login-box">
-  <div class="login-title">
-    <a href="#" class="login-title-link text-black">
-      <img src="assets/img/work-on-logo.png" class="logo-img" alt="Logo">
-      <b class="login-title-name text-black"><?php echo $_SESSION['system']['name'] ?></b>
-    </a>
-  </div>
-  <div class="login-body">
-    <div class="card card-primary">
-      <div class="card-body login-card-body">      
-        <form action="" id="login-form">
-          <div class="input-group mb-3">
-            <input type="email" class="form-control" name="email_add" required placeholder="Email Address">
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="fas fa-envelope"></span>
-              </div>
+
+<!-- login area -->
+<section id="login" class="pt-5 mt-5">
+    <div class="container mx-auto  login-form-height" >
+        <div class="col-lg-12 text-center">
+            <legend class="text-lavander text-center fw-bold">Login</legend>
+            <div class="d-flex justify-content-center align-items-center">                
+                <form action="login" method="post" enctype="multipart/form-data" id="reg-form">
+                    <div class="form-row">
+                        <div class="col">
+                            <input type="email" value="<?php if(isset($user['email_add'])) echo $user['email_add'];  ?>" name="email_add" class="form-control my-3" id="validationDefault07" placeholder="Email Address" required>
+                        </div>
+                        <div class="col">
+                            <input type="password" value="<?php if(isset($user['password'])) echo $user['password'];  ?>" required name="password" id="password" class="form-control my-3" placeholder="Password">
+                        </div>
+                    </div>
+                    <div class="submit-btn text-center mb-5">
+                        <button type="submit" name="login_account" class="btn btn-lavander text-white text-uppercase fs-large py-2 rounded-pill text-dark px-5">Login</button>
+                    </div>
+
+                    <!-- <div class="gfm-embed" data-url="https://www.gofundme.com/f/ukraine-humanitarian-fund/widget/large/"></div>
+                    <script defer src="https://www.gofundme.com/static/js/embed.js"></script> -->
+                </form>
             </div>
-          </div>
-          <div class="input-group mb-3">
-            <input type="password" class="form-control" name="password" required placeholder="Password">
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="fas fa-lock"></span>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-12">
-              <div class="icheck-primary">
-                <input type="checkbox" id="remember">
-                <label for="remember" class="remember">
-                  Remember Me
-                </label>
-              </div>
-            </div>
-            <!-- /.col -->
-            <div class="col-12">
-              <button type="submit" class="btn btn-primary btn-block">Login</button>
-            </div>
-            <!-- /.col -->
-          </div>
-        </form>
-      </div>
-      <!-- /.login-card-body -->
+        </div>
     </div>
-  </div>
-  
-</div>
-<!-- /.login-box -->
+</section>
+<!-- #login area -->
+
+
 <script>
   $(document).ready(function(){
-    $('#login-form').submit(function(e){
+    $('#reg-form').submit(function(e){
     e.preventDefault()
     // start_load()
     if($(this).find('.alert-danger').length > 0 )

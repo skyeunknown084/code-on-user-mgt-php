@@ -45,12 +45,13 @@
 }
 
 /* Index CSS */
-.banner-img-container {
-    height: 500px;
+@media (min-width:1024px) {
+  .banner-img-container {
+    width: 450px;
     padding: 0;
     margin: 0;
-}
-.img-banner {
+  }
+  .img-banner {
     background-image:url('../img/banner-illustration-php.png');
     background-color: var(--lavander) !important;
     background-repeat:no-repeat;
@@ -61,6 +62,28 @@
     padding: 0;
     margin: 0;
     /* height: 70vh; */
+  }
+}
+@media (max-width: 1000px) {
+  .donate-btn {
+    width: 300px !important;
+  }
+}
+.banner-img-container {
+  padding: 0;
+  margin: 0;
+}
+.img-banner {
+  background-image:url('../img/banner-illustration-php.png');
+  background-color: var(--lavander) !important;
+  background-repeat:no-repeat;
+  background-size: contain;
+  max-width: 100%;
+  max-height: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  /* height: 70vh; */
 }
 
 /* StartFund CSS */
@@ -124,14 +147,14 @@
     filter: invert(100%) !important;
 }
 
-#reg-form input[type='text'],
-#reg-form input[type='email'],
-#reg-form input[type='password'],
-#reg-form input[type='text'],
-#reg-form input[type='email'],
-#reg-form input[type='password'],
-#reg-form input[type='number'],
-#reg-form input[type='date']{
+.lavander-form input[type='text'],
+.lavander-form input[type='email'],
+.lavander-form input[type='password'],
+.lavander-form input[type='text'],
+.lavander-form input[type='email'],
+.lavander-form input[type='password'],
+.lavander-form input[type='number'],
+.lavander-form input[type='date']{
     border: none !important;
     border-radius: unset !important;
     color: var(--blackish) !important;
@@ -139,26 +162,26 @@
     font-family: var(--lavander) !important;
 }
 
-#reg-form input[type='text']::placeholder,
-#reg-form input[type='email']::placeholder,
-#reg-form input[type='password']::placeholder,
-#reg-form input[type='text']::placeholder,
-#reg-form input[type='email']::placeholder,
-#reg-form input[type='password']::placeholder,
-#reg-form input[type='number']::placeholder,
-#reg-form input[type='date']::placeholder{
+.lavander-form input[type='text']::placeholder,
+.lavander-form input[type='email']::placeholder,
+.lavander-form input[type='password']::placeholder,
+.lavander-form input[type='text']::placeholder,
+.lavander-form input[type='email']::placeholder,
+.lavander-form input[type='password']::placeholder,
+.lavander-form input[type='number']::placeholder,
+.lavander-form input[type='date']::placeholder{
     color: var(--blackish) !important;
     font-weight: 400 !important;
 }
 
-#reg-form input[type='text'],
-#reg-form input[type='email'],
-#reg-form input[type='password'],
-#reg-form input[type='text'],
-#reg-form input[type='email'],
-#reg-form input[type='password'],
-#reg-form input[type='number'],
-#reg-form input[type='date']{
+.lavander-form input[type='text'],
+.lavander-form input[type='email'],
+.lavander-form input[type='password'],
+.lavander-form input[type='text'],
+.lavander-form input[type='email'],
+.lavander-form input[type='password'],
+.lavander-form input[type='number'],
+.lavander-form input[type='date']{
     outline: none;
     box-shadow: none;
 }
@@ -170,16 +193,20 @@ color: transparent;
 visibility: hidden;
 }
 @media (max-width:499px) {
-.custom-file-input::before {
+  input[type='file'] {
+    border: none;
+  }
+  .custom-file-input::before {
     content: 'Upload A Photo';
     color: var(--white);
     display: inline-block;
     background: var(--lavander);
     border-radius: 25px;
+    border: none;
     padding: 8px 25px;
     outline: none;
     white-space: nowrap;
-    -webkit-user-select: none;
+    /* -webkit-user-select: none; */
     cursor: pointer;
     text-align: center;
     display: flex;
@@ -189,19 +216,23 @@ visibility: hidden;
     margin: 0 auto;
     font-weight: 500;
     font-size: 13pt;
-}
+  }
 }
 @media (min-width:500px) {
-.custom-file-input::before {
+  input[type='file'] {
+    border: none;
+  }
+  .custom-file-input::before {
     content: 'Upload A Photo';
     color: var(--white);
     display: inline-block;
     background: var(--lavander);
     border-radius: 25px;
+    border: none;
     padding: 8px 20px;
     outline: none;
     white-space: nowrap;
-    -webkit-user-select: none;
+    /* -webkit-user-select: none; */
     cursor: pointer;
     text-align: center;
     display: flex;
@@ -211,9 +242,9 @@ visibility: hidden;
     margin: 0 auto;
     font-weight: 500;
     font-size: 13pt;
+  }
 }
-}
-.custom-file-input:hover::before {
+/* .custom-file-input:hover::before {
 border-color: none;
 }
 .custom-file-input:active {
@@ -221,7 +252,7 @@ outline: 0;
 }
 .custom-file-input:active::before {
 background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9); 
-}
+} */
 #ImgFileUpload {
   margin: 0;
   border: 0;
@@ -332,4 +363,11 @@ background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
   /* Mark the steps that are finished and valid: */
   .step.finish {
     background-color: #04AA6D;
+  }
+
+  /* login height media screen views */
+  @media (min-width:1024px) {
+    .login-form-height {
+      height: 80vh;
+    }
   }

@@ -31,26 +31,31 @@ if(isset($_GET['id'])){
         <ul class="navbar-nav ms-auto me-3 flex-right uppercase">
             <?php if($_SESSION['login_type'] != 2) { ?>                                             
             <li class="nav-item">
-                <a class="text-blackish-lavander btn-r-square px-3 nav-link" href="<?php base()?>login">Sign In <span class="sr-only">(Home)</span></a>
-            </li>
-            <?php } ?>
+                <a class="text-blackish-lavander btn-r-square px-3 nav-link" href="<?php base()?>login">Sign In <span class="sr-only">(Sign In)</span></a>
+            </li>           
             <li class="nav-item">
                 <a class="text-blackish-lavander btn-r-square px-3 nav-link" href="<?php base()?>register">Start A Fund <span class="sr-only">(Start A Fund)</span></a>
             </li>
+            <?php } else { ?>         
+                <li class="nav-item">
+                    <a class="text-blackish-lavander btn-r-square px-3 nav-link" href="<?php base()?>startnewfund">Start A New Fund <span class="sr-only">(Start A Fund)</span></a>
+                </li>
+            <?php } ?>
             <li class="nav-item">
                 <a class="text-blackish-lavander btn-r-square px-3 nav-link" href="<?php base()?>donees">Donate <span class="sr-only">(Donate)</span></a>
             </li>
             <li class="nav-item">
                 <a class="text-blackish-lavander btn-r-square px-3 nav-link" href="<?php base()?>contact">Contact <span class="sr-only">(Contact)</span></a>
             </li>
+            <li class="nav-item">
             <?php if($_SESSION['login_type'] == 2) { ?>
-            <div class="btn-group">
+            <div class="btn-group btn-lg pt-1">
                 <?php
                     $qry = $conn->query("SELECT * FROM accounts $where order by id asc");
                     $row= $qry->fetch_assoc()
                 ?>
-                <button type="button" class="btn btn-lavander btn-sm py-0 px-3 dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <span class="text-aquamarine"><?php echo ucwords($row['reg_firstname']) ?></span>
+                <button type="button" class="btn btn-lavander btn-round btn-sm py-1 px-3 dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <span class="text-aquamarine" style="font-size:16px"><?php echo ucwords($row['reg_firstname']) ?></span>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end mt-5">
                     <li><a class="dropdown-item" type="button" href="<?php base() ?>profile_list">My Abuloys</a></li>
@@ -63,6 +68,7 @@ if(isset($_GET['id'])){
                 <span class="text-lavander hide"><?php echo ucwords($_SESSION['login_firstname']) ?></span><a class="dropdown-item" href="ajax.php?action=logout"><i class="fa fa-power-off"></i> Logout</a>
             </li>
             <?php } ?>
+            </li>
         </ul>
     </div>
 </section>

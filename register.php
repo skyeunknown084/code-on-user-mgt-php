@@ -24,9 +24,9 @@
                 ?>
                 </div>
                 <div class="card-body">
-                    <form action="" id="manage_account">
+                    <form action="" id="manage_user">
                         <input type="hidden" name="id" value="<?php echo isset($id) ? $id : '' ?>">
-                        <div class="form-row col-md-12 mx-auto">
+                        <div class="form-row col-md-12 mx-auto" >
                             <div class="col-md-6 mx-auto">
                                 <div class="form-group">
                                     <label for="" class="control-label">First Name</label>
@@ -39,14 +39,12 @@
                                 <div class="form-group hide">
                                     <label for="" class="control-label hide">User Role</label>
                                     <input type="hidden" name="type" value="2">                                    
-                                </div>
-                                
+                                </div>                                
                             </div>
                             <div class="col-md-6 mx-auto">
                                 <div class="form-group">
                                     <label class="control-label">Phone Number</label>
                                     <input type="text" class="form-control form-control-sm" name="phone_number" required value="<?php echo isset($phone_number) ? $phone_number : '' ?>">
-                                    
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">Email</label>
@@ -64,6 +62,14 @@
                                     <small id="pass_match" data-status=''></small>
                                 </div>
                             </div>
+                        </div>
+                        <hr>
+                        <div class="col-lg-12 text-right justify-content-center d-flex">
+                            <button type="submit" class="btn btn-primary mr-2">Continue</button>
+                            <button class="btn btn-secondary hide" type="button" onclick="location.href = '<?php base() ?>home'">Cancel</button>
+                        </div>
+                    </form>
+                    <form action="" id="manage_account">
                             <div class="col-md-6 mx-auto">
                                 <div class="form-group">
                                     <label for="" class="control-label">Avatar</label>
@@ -158,7 +164,45 @@
 	        reader.readAsDataURL(input.files[0]);
 	    }
 	}
-	$('#manage_account').submit(function(e){
+	$('#manage_user').submit(function(e){
+        
+		e.preventDefault()
+		$('input').removeClass("border-danger")
+		start_load()
+		$('#msg').html('')
+		if($('[name="password"]').val() != '' && $('[name="cpass"]').val() != ''){
+			if($('#pass_match').attr('data-status') != 1){
+				if($("[name='password']").val() !=''){
+					$('[name="password"],[name="cpass"]').addClass("border-danger")
+					end_load()
+					return false;
+				}
+			}
+		}
+        
+		$.ajax({
+			url:'ajax.php?action=save_user',
+			data: new FormData($(this)[0]),
+		    cache: false,
+		    contentType: false,
+		    processData: false,
+		    method: 'POST',
+		    type: 'POST',
+			success:function(resp){
+				if(resp == 1){
+					alert_toast('Data successfully saved.',"success");
+					setTimeout(function(){
+						location.replace('login')
+					},750)
+				}else if(resp == 2){
+					$('#msg').html("<div class='alert alert-danger' role='alert'>Email already exist.</div>");
+					$('[name="email_add"]').addClass("border-danger");
+					end_load()
+				}
+			}
+		})
+	})
+    $('#manage_account').submit(function(e){
         
 		e.preventDefault()
 		$('input').removeClass("border-danger")
