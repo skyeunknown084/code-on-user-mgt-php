@@ -1,20 +1,20 @@
 # ignored extensions
-*.jpg
-*.png
-*.gif
-*.pdf
-*.exe
+# *.jpg
+# *.png
+# *.gif
+# *.pdf
+# *.exe
 
 #ignored environment
-.htaccess
-.env
+# .htaccess
+# .env
 
-# ignored heavy folders
-/vendor
-vendor/
-/uploading
-uploading/
+# # ignored heavy folders
+# /vendor
+# vendor/
+# /uploading
+# uploading/
 
-# ignored data
-/database
-database/
+# # ignored data
+# /database
+# database/
