@@ -31,16 +31,6 @@ if($action == 'save_account'){
 	if($save)
 		echo $save;
 }
-if($action == 'save_admin_account'){
-	$save = $crud->save_admin_account();
-	if($save)
-		echo $save;
-}
-if($action == 'save_my_donate'){
-	$save = $crud->save_my_donate();
-	if($save)
-		echo $save;
-}
 // end call
 ob_end_flush();
 ?>

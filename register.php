@@ -24,17 +24,15 @@
                 ?>
                 </div>
                 <div class="card-body">
-                    <form action="" id="manage_user">
-                        <input type="hidden" name="id" value="<?php echo isset($id) ? $id : '' ?>">
-                        <div class="form-row col-md-12 mx-auto" >
+                    <form action="" id="create_new_user">
+                        <div class="form-row col-md-12 lavander-form mx-auto">
+                            <input type="hidden" name="id" value="<?php echo isset($id) ? $id : '' ?>">
                             <div class="col-md-6 mx-auto">
-                                <div class="form-group">
-                                    <label for="" class="control-label">First Name</label>
-                                    <input type="text" name="reg_firstname" class="form-control form-control-sm" required value="<?php echo isset($reg_firstname) ? $reg_firstname : '' ?>">
+                                <div class="form-group  my-3">
+                                    <input type="text" name="firstname" class="form-control" required placeholder="First Name*" value="<?php echo isset($firstname) ? $firstname : '' ?>">
                                 </div>
-                                <div class="form-group">
-                                    <label for="" class="control-label">Last Name</label>
-                                    <input type="text" name="reg_lastname" class="form-control form-control-sm" required value="<?php echo isset($reg_firstname) ? $reg_firstname : '' ?>">
+                                <div class="form-group  my-3">
+                                    <input type="text" name="lastname" class="form-control" required placeholder="Last Name*" value="<?php echo isset($lastname) ? $lastname : '' ?>">
                                 </div>
                                 <div class="form-group hide">
                                     <label for="" class="control-label hide">User Role</label>
@@ -42,88 +40,27 @@
                                 </div>                                
                             </div>
                             <div class="col-md-6 mx-auto">
-                                <div class="form-group">
-                                    <label class="control-label">Phone Number</label>
-                                    <input type="text" class="form-control form-control-sm" name="phone_number" required value="<?php echo isset($phone_number) ? $phone_number : '' ?>">
+                                <div class="input-group phone-input-group px-0 mx-0  my-3">
+                                    <span class="input-group-text phone-input-group-text">+63 </span>
+                                    <input type="text" class="form-control" name="phone_number" maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required placeholder="Phone Number*" value="<?php echo isset($phone_number) ? $phone_number : '' ?>">
                                 </div>
-                                <div class="form-group">
-                                    <label class="control-label">Email</label>
-                                    <input type="email" class="form-control form-control-sm" name="email_add" required value="<?php echo isset($email_add) ? $email_add : '' ?>">
+                                <div class="form-group my-3">
+                                    <input type="email" class="form-control" name="email" required placeholder="Email Address*" value="<?php echo isset($email) ? $email : '' ?>">
                                     <small id="#msg"></small>
                                 </div>
-                                <div class="form-group">
-                                    <label class="control-label">Password</label>
-                                    <input type="password" class="form-control form-control-sm" name="password" <?php echo !isset($id) ? "required":'' ?>>
+                                <div class="form-group my-3">
+                                    <input type="password" class="form-control" name="password" <?php echo !isset($id) ? "required":'' ?> placeholder="Password*">
                                     <small><i><?php echo isset($id) ? "Leave this blank if you dont want to change you password":'' ?></i></small>
                                 </div>
-                                <div class="form-group">
-                                    <label class="label control-label">Confirm Password</label>
-                                    <input type="password" class="form-control form-control-sm" name="cpass" <?php echo !isset($id) ? 'required' : '' ?>>
+                                <div class="form-group my-3">
+                                    <input type="password" class="form-control" name="cpass" <?php echo !isset($id) ? 'required' : '' ?> placeholder="Confirm password*">
                                     <small id="pass_match" data-status=''></small>
                                 </div>
                             </div>
                         </div>
-                        <hr>
-                        <div class="col-lg-12 text-right justify-content-center d-flex">
-                            <button type="submit" class="btn btn-primary mr-2">Continue</button>
-                            <button class="btn btn-secondary hide" type="button" onclick="location.href = '<?php base() ?>home'">Cancel</button>
-                        </div>
-                    </form>
-                    <form action="" id="manage_account">
-                            <div class="col-md-6 mx-auto">
-                                <div class="form-group">
-                                    <label for="" class="control-label">Avatar</label>
-                                    <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="customFile" name="img" onchange="displayImg(this,$(this))">
-                                    <label class="custom-file-label" for="customFile">Choose file</label>
-                                    </div>
-                                </div>
-                                <div class="form-group d-flex justify-content-center align-items-center">
-                                    <img src="<?php echo isset($avatar) ? 'assets/uploads/'.$avatar :'' ?>" alt="Avatar" id="cimg" class="img-fluid img-thumbnail ">
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label">FirstName</label>
-                                    <input type="text" class="form-control form-control-sm" name="d_firstname" required value="<?php echo isset($d_firstname) ? $d_firstname : '' ?>">
-                                    <small id="#fn_msg"></small>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label">MiddleName</label>
-                                    <input type="text" class="form-control form-control-sm" name="d_middlename" value="<?php echo isset($d_middlename) ? $d_middlename : '' ?>">
-                                    <small id="#mn_msg"></small>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label">LastName</label>
-                                    <input type="text" class="form-control form-control-sm" name="d_lastname" required value="<?php echo isset($d_lastname) ? $d_lastname : '' ?>">
-                                    <small id="#ln_msg"></small>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label">BirthDate</label>
-                                    <input type="date" class="form-control form-control-sm" name="d_birthdate" required value="<?php echo isset($d_birthdate) ? $d_birthdate : '' ?>">
-                                    
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label">Date of Death</label>
-                                    <input type="date" class="form-control form-control-sm" name="d_date_of_death" required value="<?php echo isset($d_date_of_death) ? $d_date_of_death : '' ?>">
-                                    
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label">Tell his/her story. What happened?</label>
-                                    <textarea cols="30" rows="10" class="form-control form-control-sm" name="d_summary" required value="<?php echo isset($d_summary) ? $d_summary : '' ?>"></textarea>
-                                    
-                                </div>
-                            </div>
-                            <div class="col-md-6 mx-auto">
-                                <div class="form-group">
-                                    <label class="control-label">Goal Amount</label>
-                                    <input type="number" class="form-control form-control-sm" name="d_goal_amount" required value="<?php echo isset($d_goal_amount) ? $d_goal_amount : '' ?>">
-                                    
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="col-lg-12 text-right justify-content-center d-flex">
-                            <button type="submit" class="btn btn-primary mr-2">Save</button>
-                            <button class="btn btn-secondary" type="button" onclick="location.href = '<?php base() ?>profile'">Cancel</button>
+                        <div class="col-lg-12 text-right justify-content-center d-flex mb-5">
+                            <button type="submit" name="create_new_user" class="btn btn-primary me-2">Continue</button>
+                            <button class="btn btn-secondary" type="button" onclick="location.href = '<?php base() ?>home'">Cancel</button>
                         </div>
                     </form>
                 </div>
@@ -164,8 +101,7 @@
 	        reader.readAsDataURL(input.files[0]);
 	    }
 	}
-	$('#manage_user').submit(function(e){
-        
+	$('#create_new_user').submit(function(e){
 		e.preventDefault()
 		$('input').removeClass("border-danger")
 		start_load()
@@ -179,7 +115,6 @@
 				}
 			}
 		}
-        
 		$.ajax({
 			url:'ajax.php?action=save_user',
 			data: new FormData($(this)[0]),
@@ -192,58 +127,11 @@
 				if(resp == 1){
 					alert_toast('Data successfully saved.',"success");
 					setTimeout(function(){
-						location.replace('login')
+						location.replace('startnewfund')
 					},750)
 				}else if(resp == 2){
-					$('#msg').html("<div class='alert alert-danger' role='alert'>Email already exist.</div>");
-					$('[name="email_add"]').addClass("border-danger");
-					end_load()
-				}
-			}
-		})
-	})
-    $('#manage_account').submit(function(e){
-        
-		e.preventDefault()
-		$('input').removeClass("border-danger")
-		start_load()
-		$('#msg').html('')
-        $('#fn_msg').html('')
-        $('#mn_msg').html('')
-        $('#ln_msg').html('')
-		if($('[name="password"]').val() != '' && $('[name="cpass"]').val() != ''){
-			if($('#pass_match').attr('data-status') != 1){
-				if($("[name='password']").val() !=''){
-					$('[name="password"],[name="cpass"]').addClass("border-danger")
-					end_load()
-					return false;
-				}
-			}
-		}
-        
-		$.ajax({
-			url:'ajax.php?action=save_account',
-			data: new FormData($(this)[0]),
-		    cache: false,
-		    contentType: false,
-		    processData: false,
-		    method: 'POST',
-		    type: 'POST',
-			success:function(resp){
-				if(resp == 1){
-					alert_toast('Data successfully saved.',"success");
-					setTimeout(function(){
-						location.replace('login')
-					},750)
-				}else if(resp == 2){
-					$('#msg').html("<div class='alert alert-danger' role='alert'>Email already exist.</div>");
-					$('[name="email_add"]').addClass("border-danger");
-                    $('#fn_msg').html("<div class='alert alert-danger' role='alert'>First Name already exist.</div>");
-					$('[name="d_firstname"]').addClass("border-danger")
-                    $('#mn_msg').html("<div class='alert alert-danger' role='alert'>Middle Name already exist.</div>");
-					$('[name="d_middlename"]').addClass("border-danger")
-                    $('#ln_msg').html("<div class='alert alert-danger' role='alert'>Last Name already exist.</div>");
-					$('[name="d_lastname"]').addClass("border-danger")
+					$('#msg').html("<div class='alert alert-danger'>Email already exist.</div>");
+					$('[name="email"]').addClass("border-danger")
 					end_load()
 				}
 			}

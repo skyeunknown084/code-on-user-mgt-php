@@ -5,7 +5,7 @@ if($_SESSION['login_type'] != 1)
 ?>
 <?php 
 if(isset($_GET['id'])){
-	$qry = $conn->query("SELECT * FROM accounts where id = ".$_GET['id'])->fetch_array();
+	$qry = $conn->query("SELECT * FROM users where id = ".$_GET['id'])->fetch_array();
 	foreach($qry as $k => $v){
 		$$k = $v;
 	}
@@ -46,7 +46,7 @@ if(isset($_GET['id'])){
         </div>
         <hr class="mt-0"/>
         <?php
-            $qry = $conn->query("SELECT *,concat(d_firstname,' ',d_lastname) as name FROM accounts $where order by id asc");
+            $qry = $conn->query("SELECT firstname,d_firstname,d_lastname,d_birthdate,d_date_of_death,d_goal_amount,d_summary,avatar FROM users t1 INNER JOIN accounts t2 on t1.id = t2.user_id");
             if($row= $qry->fetch_assoc()):
             $bdate = $row['d_birthdate'];
             $dod = $row['d_date_of_death'];

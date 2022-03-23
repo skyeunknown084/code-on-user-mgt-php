@@ -4,12 +4,12 @@ if($_SESSION['login_type'] != 1)
   $twhere = "  ";
 ?>
 <?php 
-if(isset($_GET['id'])){
-	$qry = $conn->query("SELECT * FROM accounts where id = ".$_GET['id'])->fetch_array();
-	foreach($qry as $k => $v){
-		$$k = $v;
-	}
-}
+// if(isset($_GET['id'])){
+// 	$qry = $conn->query("SELECT users.*, accounts.* FROM users LEFT JOIN accounts where users.id = accounts.id".$_GET['id'])->fetch_array();
+// 	foreach($qry as $k => $v){
+// 		$$k = $v;
+// 	}
+// }
 ?>
 <?php 
     // switch between admin(1) and user(2)
@@ -24,16 +24,16 @@ if(isset($_GET['id'])){
     
 <section class="py-5" id="">
     <?php
-        $qry = $conn->query("SELECT * FROM accounts $where order by id asc");
+        $qry = $conn->query("SELECT firstname,d_firstname,d_middlename,d_lastname FROM users t1 INNER JOIN accounts t2 on t1.id = t2.user_id");
         $row= $qry->fetch_assoc()
     ?>
-    <div class="container pb-5">
+    <div class="container py-2">
         <div class="row banner-content fullscreen align-items-center justify-content-start pb-4">
             <div class=" col-lg-7 col-md-6 col-sm-12 p-0 mb-4">
                 <div class="col-lg-12 pt-5 ps-5">
                     <h3 class="text-blackish fw-700 block pt-5 pe-2">
                         <i>Hi <span class="text-lavander">
-                        <?php echo ucwords($row['reg_firstname']) ?>! </span></i>
+                        <?php echo ucwords($row['firstname']) ?>! </span></i>
                         <div class="pe-5 pt-0"><h4 class="pe-5 pt-0 mt-0 text-blackish">You successfully raised <br/>your first fund for</h4></div>
                         <span class="text-aquamarine text-underline"><span class="text-lavander"><?php echo ucwords($row['d_firstname']) ?> <?php if($row['d_middlename']!=''): ?><?php echo $row['d_middlename']; ?>.<?php endif ?> <?php echo ucwords($row['d_lastname']) ?></span></span>
                     </h3><br/>
@@ -53,9 +53,9 @@ if(isset($_GET['id'])){
 </section>
 <?php } else { ?>
     
-    <section class="py-5 mt-5" id="">
+    <section class="py-5" id="">
     <?php
-        $qry = $conn->query("SELECT * FROM accounts $where order by id asc");
+        $qry = $conn->query("SELECT firstname,d_firstname,d_middlename,d_lastname FROM users t1 INNER JOIN accounts t2 on t1.id = t2.user_id");
         $row= $qry->fetch_assoc()
     ?>
     <div class="container py-5">
@@ -64,7 +64,7 @@ if(isset($_GET['id'])){
                 <div class="col-lg-12 pt-5 ps-5">
                     <h2>Welcome to <div class="text-aquamarine text-underline fw-900 pb-4"><span class="text-lavander">Abuloy</span></div></h2>
                     <div class="pe-5 pt-0"><h4 class="pe-5 pt-0 mt-0">Your can now help your love ones to raised a fund.</h4></div>
-                    <a href="<?php base() ?>profile_list" class="btn btn-lavander btn-round text-uppercase" id="showFundForm">Start A Fund Now <i class="fas fa-hand-holding-heart ps-2"></i> </a>
+                    <a href="<?php base() ?>register" class="btn btn-lavander btn-round text-uppercase" id="showFundForm">Start A Fund Now <i class="fas fa-hand-holding-heart ps-2"></i> </a>
                     
                 </div>                             
             </div>

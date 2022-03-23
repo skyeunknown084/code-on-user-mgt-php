@@ -25,9 +25,9 @@ header("location:home");
             <legend class="text-lavander text-center fw-bold">Login</legend>
             <div class="d-flex justify-content-center align-items-center">                
                 <form action="login" method="post" enctype="multipart/form-data" id="reg-form">
-                    <div class="form-row">
+                    <div class="form-row lavander-form">
                         <div class="col">
-                            <input type="email" value="<?php if(isset($user['email_add'])) echo $user['email_add'];  ?>" name="email_add" class="form-control my-3" id="validationDefault07" placeholder="Email Address" required>
+                            <input type="email" value="<?php if(isset($user['email'])) echo $user['email'];  ?>" name="email" class="form-control my-3" id="validationDefault07" placeholder="Email Address" required>
                         </div>
                         <div class="col">
                             <input type="password" value="<?php if(isset($user['password'])) echo $user['password'];  ?>" required name="password" id="password" class="form-control my-3" placeholder="Password">
@@ -36,7 +36,7 @@ header("location:home");
                     <div class="submit-btn text-center mb-5">
                         <button type="submit" name="login_account" class="btn btn-lavander text-white text-uppercase fs-large py-2 rounded-pill text-dark px-5">Login</button>
                     </div>
-
+                    <small class="text-blackish">If you don't have any account? <a href="<?php base() ?>register" class="no-style text-lavander">Sign-up</a></small>
                     <!-- <div class="gfm-embed" data-url="https://www.gofundme.com/f/ukraine-humanitarian-fund/widget/large/"></div>
                     <script defer src="https://www.gofundme.com/static/js/embed.js"></script> -->
                 </form>

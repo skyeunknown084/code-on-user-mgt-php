@@ -51,11 +51,11 @@ if(isset($_GET['id'])){
             <?php if($_SESSION['login_type'] == 2) { ?>
             <div class="btn-group btn-lg pt-1">
                 <?php
-                    $qry = $conn->query("SELECT * FROM accounts $where order by id asc");
+                    $qry = $conn->query("SELECT firstname FROM users t1 INNER JOIN accounts t2 on t1.id = t2.user_id");
                     $row= $qry->fetch_assoc()
                 ?>
                 <button type="button" class="btn btn-lavander btn-round btn-sm py-1 px-3 dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <span class="text-aquamarine" style="font-size:16px"><?php echo ucwords($row['reg_firstname']) ?></span>
+                    <span class="text-aquamarine" style="font-size:16px"><?php echo ucwords($row['firstname']) ?></span>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end mt-5">
                     <li><a class="dropdown-item" type="button" href="<?php base() ?>profile_list">My Abuloys</a></li>

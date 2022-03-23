@@ -28,44 +28,45 @@ if(isset($_GET['id'])){
     <div class="container">
         <div class="row fullscreen align-items-center justify-content-start">
             <div class="col-lg-8 pt-5">
+                <?php
+                    $qry = $conn->query("SELECT firstname,concat(d_firstname,' ',d_lastname) as name,d_birthdate,d_date_of_death,d_goal_amount,d_summary FROM users t1 INNER JOIN accounts t2 on t1.id = t2.user_id");
+                    if($row= $qry->fetch_assoc()):
+                    $bdate = $row['d_birthdate'];
+                    $dod = $row['d_date_of_death'];
+                    $goal_amount = $row['d_goal_amount'];
+                ?>
                 <div class="col-lg-12 col-sm-12 p-0 ps-0 pe-5">
-                    <?php
-                        $qry = $conn->query("SELECT *,concat(d_firstname,' ',d_lastname) as name FROM accounts $where order by id asc");
-                        if($row= $qry->fetch_assoc()):
-                        $bdate = $row['d_birthdate'];
-                        $dod = $row['d_date_of_death'];
-                        $goal_amount = $row['d_goal_amount'];
-                    ?>
+                    
                     <div class="card p-0 ">
                         <div class="card-body p-0 donee-photo">
                             <a target="_blank" href=""><img src="<?php base() ?>/assets/uploads/<?php echo $row['avatar'] ?>" alt=""></a>
                         </div>
                         <div class="card-footer pb-3">
-                            <div class="p-0"><?php echo $row['d_firstname']?> <?php echo $row['d_lastname']?> <br><?php echo date("M d, Y",strtotime($bdate)) ?> - <?php echo date("M d, Y",strtotime($dod)) ?></div>
+                            <div class="p-0"><?php echo $row['name']?> <br><?php echo date("M d, Y",strtotime($bdate)) ?> - <?php echo date("M d, Y",strtotime($dod)) ?></div>
                             <div  class="fb-share-button" data-href="https://abuloy.ph/" data-layout="button_count" data-size="small">
                                 
                                 <a target="_blank" id="shareBtn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fabuloy.ph%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a>
                             </div>
                         </div>
-                    </div>
-                    <?php endif ?>
+                    </div>                    
                 </div>
                 <div class="main-content-header col-lg-12 col-md-12 p-0 mt-5">
                     <div class="accordion" id="accordionPanelsStayOpenExample">
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="panelsStayOpen-headingOne">
                             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                                Description Here:
+                                Summary
                             </button>
                             </h2>
                             <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
                             <div class="accordion-body">
-                                <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                                <?php echo $row['d_summary']?>
                             </div>
                             </div>
                         </div>
                     </div>                                    
                 </div>
+                <?php endif ?>
             </div>
             <div class="col-lg-4">
                 <div class="card align-m p-10" style="padding:40px;">

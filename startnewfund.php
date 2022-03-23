@@ -1,8 +1,21 @@
 <?php
-// if($_SERVER['REQUEST_METHOD'] == 'POST'){
-//     require ('register-process.php');
+// session_start();
+// include 'db_connect.php';
+//     $system = $conn->query("SELECT * FROM users")->fetch_array();
+//     foreach($system as $k => $v){
+//     $_SESSION['login_type'][$k] = $v;
+//     }
+// $twhere ="";
+// if($_SESSION['login_type'] != 1)
+//   $twhere = "  ";
+
+
+// if(isset($_GET['id'])){
+// 	$qry = $conn->query("SELECT * FROM users where id = ".$_GET['id'])->fetch_array();
+// 	foreach($qry as $k => $v){
+// 		$$k = $v;
+// 	}
 // }
-   
 ?>
 <section id="register pt-0" class="py-5">    
     <legend class="text-lavander text-center fw-bold mt-5 pt-0">Create an Account</legend>
@@ -24,11 +37,16 @@
                 ?>
                 </div>
                 <div class="card-body">
-                    <form action="" id="manage_account" class="lavander-form">
+                    <form action="" id="create_new_account" class="lavander-form">
                         <input type="hidden" name="id" value="<?php echo isset($id) ? $id : '' ?>">
                         <div class="form-row col-md-12 mx-auto">
-                            
+                            <input type="hidden" name="user_id" value="1">
+                             
                             <div class="col-lg-4 col-md-6 col-sm-12 mx-auto">
+                                <div class="form-group hide">
+                                    <label for="" class="control-label hide">User Role</label>
+                                    <input type="hidden" name="type" value="2">                                    
+                                </div> 
                                 <div class="form-group d-flex justify-content-center align-items-center">
                                     <img src="<?php echo isset($avatar) ? 'assets/uploads/'.$avatar :'assets/img/no-logo.png' ?>" id="cimg" class="img-fluid img-thumbnail p-2">
                                 </div>
@@ -43,7 +61,7 @@
                                 <div class="form-group py-3">
                                     <label class="control-label hide">FirstName</label>
                                     <input type="text" class="form-control form-control text-center" name="d_firstname" required value="<?php echo isset($d_firstname) ? $d_firstname : '' ?>" placeholder="First Name*">
-                                    <small id="#fn_msg"></small>
+                                    <small id="#msg"></small>
                                 </div>
                                 <div class="form-group py-3">
                                     <label class="control-label hide">MiddleName</label>
@@ -103,48 +121,19 @@
 	}
 </style>
 <script>
-	$('[name="password"],[name="cpass"]').keyup(function(){
-		var pass = $('[name="password"]').val()
-		var cpass = $('[name="cpass"]').val()
-		if(cpass == '' ||pass == ''){
-			$('#pass_match').attr('data-status','')
-		}else{
-			if(cpass == pass){
-				$('#pass_match').attr('data-status','1').html('<i class="text-success">Password Matched.</i>')
-			}else{
-				$('#pass_match').attr('data-status','2').html('<i class="text-danger">Password does not match.</i>')
-			}
-		}
-	})
 	function displayImg(input,_this) {
 	    if (input.files && input.files[0]) {
 	        var reader = new FileReader();
 	        reader.onload = function (e) {
 	        	$('#cimg').attr('src', e.target.result);
 	        }
-
 	        reader.readAsDataURL(input.files[0]);
 	    }
 	}
-	$('#manage_account').submit(function(e){
-        
+	$('#create_new_account').submit(function(e){
 		e.preventDefault()
 		$('input').removeClass("border-danger")
 		start_load()
-		$('#msg').html('')
-        $('#fn_msg').html('')
-        $('#mn_msg').html('')
-        $('#ln_msg').html('')
-		if($('[name="password"]').val() != '' && $('[name="cpass"]').val() != ''){
-			if($('#pass_match').attr('data-status') != 1){
-				if($("[name='password']").val() !=''){
-					$('[name="password"],[name="cpass"]').addClass("border-danger")
-					end_load()
-					return false;
-				}
-			}
-		}
-        
 		$.ajax({
 			url:'ajax.php?action=save_account',
 			data: new FormData($(this)[0]),
@@ -160,14 +149,8 @@
 						location.replace('login')
 					},750)
 				}else if(resp == 2){
-					$('#msg').html("<div class='alert alert-danger' role='alert'>Email already exist.</div>");
-					$('[name="email_add"]').addClass("border-danger");
-                    $('#fn_msg').html("<div class='alert alert-danger' role='alert'>First Name already exist.</div>");
+					$('#msg').html("<div class='alert alert-danger'>First Name already exist.</div>");
 					$('[name="d_firstname"]').addClass("border-danger")
-                    $('#mn_msg').html("<div class='alert alert-danger' role='alert'>Middle Name already exist.</div>");
-					$('[name="d_middlename"]').addClass("border-danger")
-                    $('#ln_msg').html("<div class='alert alert-danger' role='alert'>Last Name already exist.</div>");
-					$('[name="d_lastname"]').addClass("border-danger")
 					end_load()
 				}
 			}

@@ -27,7 +27,7 @@
         </div>
         <div class="row d-flex p-0">
             <?php
-                $qry = $conn->query("SELECT *,concat(d_firstname,' ',d_lastname) as name FROM accounts order by concat(d_firstname,' ',d_lastname) asc");
+                $qry = $conn->query("SELECT firstname,concat(d_firstname,' ',d_lastname) as name,d_birthdate,d_date_of_death,d_goal_amount,d_summary FROM users t1 INNER JOIN accounts t2 on t1.id = t2.user_id");
                 while($row= $qry->fetch_assoc()):
                 $bdate = $row['d_birthdate'];
                 $dod = $row['d_date_of_death'];
