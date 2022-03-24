@@ -14,7 +14,7 @@ ob_end_flush();
 ?>
 <?php 
 if(isset($_SESSION['login_id']))
-header("location:home");
+// header("location:home");
 ?>
 <?php include 'header.php' ?>
 
@@ -24,7 +24,7 @@ header("location:home");
         <div class="col-lg-12 text-center">
             <legend class="text-lavander text-center fw-bold">Login</legend>
             <div class="d-flex justify-content-center align-items-center">                
-                <form action="login" method="post" enctype="multipart/form-data" id="reg-form">
+                <form action="login" method="post" enctype="multipart/form-data" id="login-form">
                     <div class="form-row lavander-form">
                         <div class="col">
                             <input type="email" value="<?php if(isset($user['email'])) echo $user['email'];  ?>" name="email" class="form-control my-3" id="validationDefault07" placeholder="Email Address" required>
@@ -49,7 +49,7 @@ header("location:home");
 
 <script>
   $(document).ready(function(){
-    $('#reg-form').submit(function(e){
+    $('#login-form').submit(function(e){
     e.preventDefault()
     // start_load()
     if($(this).find('.alert-danger').length > 0 )

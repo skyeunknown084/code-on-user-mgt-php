@@ -54,10 +54,6 @@ if($_SESSION['login_type'] != 1)
 <?php } else { ?>
     
     <section class="py-5" id="">
-    <?php
-        $qry = $conn->query("SELECT firstname,d_firstname,d_middlename,d_lastname FROM users t1 INNER JOIN accounts t2 on t1.id = t2.user_id");
-        $row= $qry->fetch_assoc()
-    ?>
     <div class="container py-5">
         <div class="row banner-content fullscreen align-items-center justify-content-start pb-4">
             <div class=" col-lg-7 col-md-6 col-sm-12 p-0 mb-4">

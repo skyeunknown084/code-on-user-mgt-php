@@ -1,52 +1,56 @@
 <?php
-// session_start();
-// include 'db_connect.php';
-//     $system = $conn->query("SELECT * FROM users")->fetch_array();
-//     foreach($system as $k => $v){
-//     $_SESSION['login_type'][$k] = $v;
-//     }
-// $twhere ="";
-// if($_SESSION['login_type'] != 1)
-//   $twhere = "  ";
-
-
-// if(isset($_GET['id'])){
-// 	$qry = $conn->query("SELECT * FROM users where id = ".$_GET['id'])->fetch_array();
-// 	foreach($qry as $k => $v){
-// 		$$k = $v;
-// 	}
-// }
+$twhere ="";
+if($_SESSION['login_type'] != 1)
+  $twhere = "  ";
 ?>
+<?php 
+if(isset($_GET['id'])){
+	$qry = $conn->query("SELECT * FROM accounts where id = ".$_GET['id'])->fetch_array();
+	foreach($qry as $k => $v){
+		$$k = $v;
+	}
+}
+?>
+
+<?php 
+    // switch between admin(1) and user(2)
+    $where = "";
+    if($_SESSION['login_type'] == 1){
+        $where = " where id = '{$_SESSION['login_id']}' ";
+    }elseif($_SESSION['login_type'] == 2){
+        $where = " where id = '{$_SESSION['login_id']}' ";
+    }
+     
+    
+
+?>
+<?php if($_SESSION['login_type'] == 2) { ?>
 <section id="register pt-0" class="py-5">    
     <legend class="text-lavander text-center fw-bold mt-5 pt-0">Create an Account</legend>
     <div class="d-flex justify-content-center px-3 py-0">
         <div class="col-lg-12 container">
             <div class="card card-outline card-success">
-                <div class="form-row hide">
-                <?php
-                    if(isset($_SESSION['messages']))
-                    {
-                        ?>                            
-                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                        <strong><?php echo $_SESSION['messages']; ?></strong>
-                        <button type="button" class="btn-close" id="clear-btn" data-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                        <?php
-                        unset($_SESSION['messages']);
-                    }
-                ?>
-                </div>
                 <div class="card-body">
                     <form action="" id="create_new_account" class="lavander-form">
                         <input type="hidden" name="id" value="<?php echo isset($id) ? $id : '' ?>">
                         <div class="form-row col-md-12 mx-auto">
-                            <input type="hidden" name="user_id" value="1">
-                             
+                            <div class="form-group hide" >
+                                <select class="form-control form-control-sm select2 hide" name="user_id" style="display:none;visibility:hidden;opacity:0"  required>
+                                    <option></option>
+                                    <?php 
+                                    $user = $conn->query("SELECT id,concat(firstname,' ',lastname) as name FROM users where type = 2 order by concat(firstname,' ',lastname) asc ");
+                                    while($row=$user->fetch_assoc()):
+                                    ?>
+                                    <option value="<?php echo $_SESSION['login_id'] ?>" <?php echo isset($user_id) && $user_id == $row['id'] ? "selected" : 'selected' ?> selected><?php echo ucwords($_SESSION['login_id']) ?></option>
+                                    <?php endwhile; ?>
+                                </select>
+                            </div>
                             <div class="col-lg-4 col-md-6 col-sm-12 mx-auto">
                                 <div class="form-group hide">
                                     <label for="" class="control-label hide">User Role</label>
                                     <input type="hidden" name="type" value="2">                                    
                                 </div> 
+                                
                                 <div class="form-group d-flex justify-content-center align-items-center">
                                     <img src="<?php echo isset($avatar) ? 'assets/uploads/'.$avatar :'assets/img/no-logo.png' ?>" id="cimg" class="img-fluid img-thumbnail p-2">
                                 </div>
@@ -57,7 +61,6 @@
                                     <label class="custom-file-label hide" for="">Choose file</label>
                                     </div>
                                 </div>
-                                
                                 <div class="form-group py-3">
                                     <label class="control-label hide">FirstName</label>
                                     <input type="text" class="form-control form-control text-center" name="d_firstname" required value="<?php echo isset($d_firstname) ? $d_firstname : '' ?>" placeholder="First Name*">
@@ -109,6 +112,8 @@
     </div>
     
 </section>
+<?php } ?>
+
 <style>
 	img#cimg{
 		height: 25vh;
@@ -146,7 +151,7 @@
 				if(resp == 1){
 					alert_toast('Data successfully saved.',"success");
 					setTimeout(function(){
-						location.replace('login')
+						location.replace('profile_list')
 					},750)
 				}else if(resp == 2){
 					$('#msg').html("<div class='alert alert-danger'>First Name already exist.</div>");

@@ -40,13 +40,14 @@ if(isset($_GET['id'])){
         <div class="row">
             <div class="col-12 align-right pt-4 pb-2">
                 <a href="profile_list" type="button" class="btn btn-lavander px-3 py-2">
-                    <i class="fa fa-users pe-1 text-aquamarine"></i>  View Other Fund 
+                    <i class="fa fa-users pe-1 text-aquamarine"></i>  View Other Funds 
                 </a>
             </div>
         </div>
         <hr class="mt-0"/>
         <?php
-            $qry = $conn->query("SELECT firstname,d_firstname,d_lastname,d_birthdate,d_date_of_death,d_goal_amount,d_summary,avatar FROM users t1 INNER JOIN accounts t2 on t1.id = t2.user_id");
+            $id = $_SESSION['login_id'];
+            $qry = $conn->query("SELECT firstname,d_firstname,d_lastname,d_birthdate,d_date_of_death,d_goal_amount,d_summary,avatar FROM users t1 INNER JOIN accounts t2 on t1.id = t2.user_id where t1.id = $id");
             if($row= $qry->fetch_assoc()):
             $bdate = $row['d_birthdate'];
             $dod = $row['d_date_of_death'];
@@ -76,12 +77,12 @@ if(isset($_GET['id'])){
             </div>
             
             <div class="col-lg-5 mt-lg-5 pt-lg-5">
-                <div class="col-lg-11 col-md-8 col-sm-5 mx-auto align-center py-1 px-1 mb-2">
+                <div class="col-lg-8 col-md-8 col-sm-5 mx-auto align-center py-1 px-1 mb-2">
                     <a target="_blank" class="text-lavander col-lg-8 col-md-10 col-sm-12 py-1 no-style d-flex align-items-center align-left" style="font-size:24px;border-radius:25px;width:100%" id="shareBtn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fabuloy.ph%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore"><i class="fab fa-facebook fa-2x px-3"></i><span class="pt-2">Share to Facebook</span></a>
                     <!-- <a href="donees.php" class="btn btn-lavander p-1">Share to Facebook </a> -->
                 </div>
                 <div class="col-lg-2 mx-auto align-center py-1 px-1 col-lg-12 col-md-12 col-sm-12 mb-0" style="height:20px"><p>OR</p></div>
-                <div class="col-lg-11 col-md-8 col-sm-5 mx-auto align-center py-2 px-1">
+                <div class="col-lg-8 col-md-8 col-sm-5 mx-auto align-center py-2 px-1 pointer" onclick="location.href='donate'">
                     <a target="_blank" class="text-lavander py-1 col-lg-12 col-md-12 col-sm-12 no-style d-flex align-items-center align-left" style="font-size:24px;border-radius:25px;width:100%" ><i class="fas fa-donate fa-2x  px-3"></i><span class="pt-2">Add Donation Now</span></a>
                     <!-- <a href="donees.php" class="btn btn-lavander p-1">Share to Facebook </a> -->
                 </div>

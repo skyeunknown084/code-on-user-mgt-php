@@ -25,7 +25,7 @@ if(isset($_GET['id'])){
     <section class="py-5" id="">
         <div class="container pt-4">
             <legend class="align-right pt-4 pb-4 text-lavander">
-                <a href="" class="btn btn-lavander px-3 py-1 hide"> <i class="fas fa-plus"></i> Create New </a>
+                <a href="<?php base() ?>startnewfund" class="btn btn-lavander px-3 py-1"> <i class="fas fa-plus"></i> Create New Fund</a>
             </legend>
             <div class="align-center col-lg-12 py-1">
                 <div class="col-lg-8 align-left">
@@ -49,18 +49,21 @@ if(isset($_GET['id'])){
                     </a> -->
                 </div>                
             </div>
+            <hr class="mt-0"/>
             <div class="row d-flex p-0">
                 <?php
-                    $qry = $conn->query("SELECT firstname,concat(d_firstname,' ',d_lastname) as name,d_birthdate,d_date_of_death,d_goal_amount,d_summary FROM users t1 INNER JOIN accounts t2 on t1.id = t2.user_id");
+                    $id = $_SESSION['login_id'];
+                    $qry = $conn->query("SELECT firstname,concat(d_firstname,' ',d_lastname) as name,d_birthdate,d_date_of_death,d_goal_amount,d_summary,avatar FROM accounts t1 INNER JOIN users t2 on t2.id = t1.user_id where t2.id = $id");
                     while($row= $qry->fetch_assoc()):
                     $bdate = $row['d_birthdate'];
                     $dod = $row['d_date_of_death'];
                     $goal_amount = $row['d_goal_amount'];
+                    $profile = $row['avatar'];
                 ?>
                 <div class="col-md-3 p-0 ps-0 pe-5 pb-4">
                     <div class="card p-0 ">
                         <div class="card-body p-0 donee-photo">
-                            <a target="_blank" href="#"><img src="<?php base() ?>/assets/uploads/<?php echo $row['avatar'] ?>" alt="" style="width:100%; height: 300px;"></a>
+                            <a target="_blank" href="<?php base() ?>profile" onclick=""><img src="<?php base() ?>/assets/uploads/<?php echo $row['avatar'] ?>" alt="" style="width:100%; height: 300px;"></a>
                         </div>
                         <div class="card-footer pb-3 text-center">
                             <div class="desc p-0"><b><?php echo ucwords($row['name']) ?></b><br><?php echo date("M d, Y",strtotime($bdate)) ?> - <?php echo date("M d, Y",strtotime($dod)) ?></div>

@@ -2,7 +2,12 @@
 // if($_SERVER['REQUEST_METHOD'] == 'POST'){
 //     require ('register-process.php');
 // }
-   
+if(isset($_SESSION['login_id'])){
+    header("location:login");
+}else {
+    // header("location:startnewfund");
+}
+
 ?>
 <section id="register" class="pt-5">    
     <legend class="text-lavander text-center fw-bold pt-5">Create an Account</legend>
@@ -59,7 +64,7 @@
                             </div>
                         </div>
                         <div class="col-lg-12 text-right justify-content-center d-flex mb-5">
-                            <button type="submit" name="create_new_user" class="btn btn-primary me-2">Continue</button>
+                            <button type="submit" name="signin" class="btn btn-primary me-2">Continue</button>
                             <button class="btn btn-secondary" type="button" onclick="location.href = '<?php base() ?>home'">Cancel</button>
                         </div>
                     </form>
@@ -91,16 +96,6 @@
 			}
 		}
 	})
-	function displayImg(input,_this) {
-	    if (input.files && input.files[0]) {
-	        var reader = new FileReader();
-	        reader.onload = function (e) {
-	        	$('#cimg').attr('src', e.target.result);
-	        }
-
-	        reader.readAsDataURL(input.files[0]);
-	    }
-	}
 	$('#create_new_user').submit(function(e){
 		e.preventDefault()
 		$('input').removeClass("border-danger")

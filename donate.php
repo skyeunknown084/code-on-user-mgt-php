@@ -5,7 +5,7 @@ if($_SESSION['login_type'] != 1)
 ?>
 <?php 
 if(isset($_GET['id'])){
-	$qry = $conn->query("SELECT * FROM accounts where id = ".$_GET['id'])->fetch_array();
+	$qry = $conn->query("SELECT * FROM users where id = ".$_GET['id'])->fetch_array();
 	foreach($qry as $k => $v){
 		$$k = $v;
 	}
@@ -20,55 +20,62 @@ if(isset($_GET['id'])){
         $where = " where id = '{$_SESSION['login_id']}' ";
     }
 ?>
- 
 <?php if($_SESSION['login_type'] == 2) { ?>
+    
 
-<section class="pb-5" id="home startafund" style="padding-top:50px;height:100%">
+<?php
+// query data
+// $user = array();
+// if(isset($_SESSION['id'])){
+//     echo $_SESSION['id'];
+//     $user = get_user_info($conn, $_SESSION['id']);
+//     print_r($user['firstname']);
+//     print_r($user['lastname']);
+// }
+?>
+
+<section class="py-5 my-5">
     <div class="overlay overlay-bg bg-aquamarine"></div>
     <div class="container">
-        <div class="row fullscreen align-items-center justify-content-start">
-            <div class="col-lg-8 pt-5">
-                <?php
-                    $qry = $conn->query("SELECT firstname,concat(d_firstname,' ',d_lastname) as name,d_birthdate,d_date_of_death,d_goal_amount,d_summary FROM users t1 INNER JOIN accounts t2 on t1.id = t2.user_id");
-                    if($row= $qry->fetch_assoc()):
-                    $bdate = $row['d_birthdate'];
-                    $dod = $row['d_date_of_death'];
-                    $goal_amount = $row['d_goal_amount'];
-                ?>
-                <div class="col-lg-12 col-sm-12 p-0 ps-0 pe-5">
-                    
-                    <div class="card p-0 ">
-                        <div class="card-body p-0 donee-photo">
-                            <a target="_blank" href=""><img src="<?php base() ?>/assets/uploads/<?php echo $row['avatar'] ?>" alt=""></a>
-                        </div>
-                        <div class="card-footer pb-3">
-                            <div class="p-0"><?php echo $row['name']?> <br><?php echo date("M d, Y",strtotime($bdate)) ?> - <?php echo date("M d, Y",strtotime($dod)) ?></div>
-                            <div  class="fb-share-button" data-href="https://abuloy.ph/" data-layout="button_count" data-size="small">
-                                
-                                <a target="_blank" id="shareBtn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fabuloy.ph%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a>
-                            </div>
-                        </div>
-                    </div>                    
-                </div>
-                <div class="main-content-header col-lg-12 col-md-12 p-0 mt-5">
-                    <div class="accordion" id="accordionPanelsStayOpenExample">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                                Summary
-                            </button>
-                            </h2>
-                            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
-                            <div class="accordion-body">
-                                <?php echo $row['d_summary']?>
-                            </div>
-                            </div>
-                        </div>
-                    </div>                                    
-                </div>
-                <?php endif ?>
+        <div class="row">
+            <div class="col-12 align-right pt-4 pb-2">
+                <a href="profile_list" type="button" class="btn btn-lavander px-3 py-2">
+                    <i class="fa fa-users pe-1 text-aquamarine"></i>  View Other Funds 
+                </a>
             </div>
-            <div class="col-lg-4">
+        </div>
+        <hr class="mt-0"/>
+        <?php
+            $qry = $conn->query("SELECT firstname,d_firstname,d_lastname,d_birthdate,d_date_of_death,d_goal_amount,d_summary,avatar FROM users t1 INNER JOIN accounts t2 on t1.id = t2.user_id");
+            if($row= $qry->fetch_assoc()):
+            $bdate = $row['d_birthdate'];
+            $dod = $row['d_date_of_death'];
+            $goal_amount = $row['d_goal_amount'];
+        ?>
+        <div class="row">
+            <div class="col-lg-7">
+                
+                <legend for="" class="fw-bold text-lavander text-center">
+                    <?php if(isset($row['d_firstname'])){ printf('%s %s', $row['d_firstname'], $row['d_lastname']); } ?>
+                </legend>
+                <p for="" class="fw-bold text-blackish text-center fs-larger">
+                <?php echo date("M d, Y",strtotime($bdate)) ?> - <?php echo date("M d, Y",strtotime($dod)) ?>
+                </p>
+                <div class="card p-0 bg-solid-silver">
+                    <a target="_blank" class="mx-auto"><img class="img-fluid avatar-profile" src="<?php base() ?>/assets/uploads/<?php echo $row['avatar'] ?>" alt=""> </a>
+                </div>
+                <div class="col-lg-12 py-3 px-2">
+                    <label for="goal-raised-progress" class="fs-larger"><span class="larger fw-700">₱5000.00</span> raised over ₱<?php echo number_format($goal_amount, 2, '.', ',');?> goal</label>
+                    <div class="col-lg-12 align-center mx-auto p-0">                    
+                        <div style="height: 25px; width:100%; background-color: rgba(148,247,207,0.55);border-radius:25px;">
+                            <div class="mh-100 px-5 text-aquamarine text-center" style="width: 50%; height: 100px; background-color: rgba(162,101,230,0.8);border-radius:25px;font-size:17px;"> 50% </div>
+                        </div>
+                    </div> 
+                </div>
+                
+            </div>
+            
+            <div class="col-lg-5 mt-lg-5 pt-lg-5">
                 <div class="card align-m p-10" style="padding:40px;">
                     <div class="card-body">
                         <form action="" id="manage_my_donation"></form>
@@ -99,147 +106,58 @@ if(isset($_GET['id'])){
                         </form>
                     </div>
                 </div>
+                <div class="col-lg-2 mx-auto align-center py-1 px-1 col-lg-12 col-md-12 col-sm-12 mt-4 mb-0 fw-bold" style="height:20px"><p>OR</p></div>
+                <div class="col-lg-8 col-md-8 col-sm-5 mx-auto align-center py-1 px-1 mt-4 mb-2">
+                    <a target="_blank" class="text-lavander col-lg-8 col-md-10 col-sm-12 py-1 no-style d-flex align-items-center align-left" style="font-size:24px;border-radius:25px;width:100%" id="shareBtn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fabuloy.ph%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore"><i class="fab fa-facebook fa-2x px-3"></i><span class="pt-2">Share to Facebook</span></a>
+                    <!-- <a href="donees.php" class="btn btn-lavander p-1">Share to Facebook </a> -->
+                </div>
+                               
             </div>
+        </div>        
+        <div class="row">
+            <div class="accordion col-12" id="accordionPanelsStayOpenExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header bg-aquamarine text-blackish" id="panelsStayOpen-headingOne">
+                    <button class="accordion-button text-purple" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                        Who is <?php if(isset($row['d_firstname'])){ printf('%s %s', $row['d_firstname'], $row['d_lastname']); } ?>?
+                    </button>
+                    </h2>
+                    <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+                    <div class="accordion-body">
+                    <?php if(isset($row['d_summary'])){ printf('%s %s', $row['d_summary'], $row['d_summary']); } ?>
+                    </div>
+                    </div>
+                </div>
+            </div>                                  
         </div>
-    </div>        
+        <?php endif ?>
+    </div>
 </section>
-
+    
 <?php } else { ?>
-
-<section class="pb-5" id="home startafund" style="padding-top:50px;height:100%">
-    <div class="overlay overlay-bg bg-aquamarine"></div>
-    <div class="container">
-        <div class="row fullscreen align-items-center justify-content-start">
-            <div class="col-lg-8 pt-5">
-                <div class="col-lg-12 col-sm-12 p-0 ps-0 pe-5">
-                    <div class="card p-0 ">
-                        <div class="card-body p-0 donee-photo">
-                            <a target="_blank" href="img_lights.jpg"></a>
-                        </div>
-                        <div class="card-footer pb-3">
-                            <div class="p-0">Jose Rizal<br>01/19/880 - 01/20/1895</div>
-                            <div  class="fb-share-button" data-href="https://abuloy.ph/" data-layout="button_count" data-size="small">
-                                
-                                <a target="_blank" id="shareBtn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fabuloy.ph%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="main-content-header col-lg-12 col-md-12 p-0 mt-5">
-                    <div class="accordion" id="accordionPanelsStayOpenExample">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                                Description Here:
-                            </button>
-                            </h2>
-                            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
-                            <div class="accordion-body">
-                                <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                            </div>
-                            </div>
-                        </div>
-                    </div>                                    
-                </div>
+    
+    <section class="py-5 mt-5" id="">
+    <?php
+        $qry = $conn->query("SELECT * FROM accounts $where order by id asc");
+        $row= $qry->fetch_assoc()
+    ?>
+    <div class="container py-5">
+        <div class="row banner-content fullscreen align-items-center justify-content-start pb-4">
+            <div class=" col-lg-7 col-md-6 col-sm-12 p-0 mb-4">
+                <div class="col-lg-12 pt-5 ps-5">
+                    <h2>Welcome to <div class="text-aquamarine text-underline fw-900 pb-4"><span class="text-lavander">Abuloy</span></div></h2>
+                    <div class="pe-5 pt-0"><h4 class="pe-5 pt-0 mt-0">Your can now help your love ones to raised a fund.</h4></div>
+                    <a href="<?php base() ?>startnewfund" class="btn btn-lavander btn-round text-uppercase" id="showFundForm">Start A Fund Now <i class="fas fa-chevron-right"></i><i class="fas fa-chevron-right"></i> </a>
+                </div>                             
             </div>
-            <div class="col-lg-4">
-                <div class="card align-m p-10" style="padding:40px;">
-                    <div class="card-body">
-                        <form action="" id="manage_gcash_donation"></form>
-                        <label for="amount" class="d-flex text-lavander justify-content-center fs-larger">Enter Amount</label>
-                        <p for="amount" class="text-black fs-small hide">A minimum of ₱ 25.00 and above is appreciated.</p>
-                        <div class="input-group mb-3 mt-3">
-                        <span class="input-group-text fw-bold fs-larger px-auto px-4">₱</span>
-                        <input type="number" name="amount" id="amount" class="form-control text-blackish amount-input fw-bold fs-larger py-0 px-auto text-center" aria-label="Amount (to the nearest peso)" style="height:60px;font-size:50px">
-                        <span class="input-group-text fw-bold fs-larger px-auto px-4">.00</span>
-                        <small id="msg"></small>
-                        </div>
-                        <a data-expiry="6" data-description="Payment for services rendered" data-href="https://getpaid.gcash.com/paynow" data-public-key="pk_d1def7eb7d0a89ba8df6b1a2aad5ca87" 
-                            onclick="this.href = this.getAttribute('data-href') 
-                                +'?public_key=' + this.getAttribute('data-public-key')
-                                +'&amp;amount=' + document.getElementById('amount').value
-                                +'&amp;fee=' + document.getElementById('amount').value * 0
-                                +'&amp;expiry='+this.getAttribute('data-expiry')
-                                +'&amp;description=' + this.getAttribute('data-description');" href="https://getpaid.gcash.com/paynow?public_key=pk_d1def7eb7d0a89ba8df6b1a2aad5ca87&amp;amount=100&amp;fee=0&amp;expiry=6&amp;description=Payment for services rendered" target="_blank" 
-                                class="btn btn-lavander  fs-larger text-uppercase p-2 align-center" >
-                            DONATE
-                        </a>
-                    </div>
-                    <div class="card-body align-m p-5 hide" style="padding:40px;">
-                        <form action="">
-                            <label for="amount"><h5>Enter Amount</h5></label>
-                            <input type="text" name="amount" class="form-control col-md-p-2"><br>
-                            <a href="#" class="btn btn-lavander text-uppercase p-1 align-center" ><h5>Donate</h5></a>
-                        </form>
-                    </div>
+            <div class="banner-img-container row align-items-center col-lg-5 col-md-6 col-sm-12 pt-5 pb-100 m-0" id="fundForm">
+                <div class="col-lg-12 img-banner img-fluid pb-5 m-0 bg-white">
+                    <img src="<?php base() ?><?php echo $row['avatar']; ?>" alt="" style="height:55vh !important;">
                 </div>
-            </div>
+            </div> 
         </div>
-    </div>        
+    </div>
 </section>
 
 <?php } ?>
-<script>
-	function computeGCashPayment(input,_this) {
-        // compute gcash payment transaction
-        // manipulate data to save on database
-	}
-	$('#manage_my_donation').submit(function(e){
-        
-		e.preventDefault()
-		$('input').removeClass("border-danger")
-		start_load()
-		$('#msg').html('')
-        
-		$.ajax({
-			url:'ajax.php?action=save_my_donate',
-			data: new FormData($(this)[0]),
-		    cache: false,
-		    contentType: false,
-		    processData: false,
-		    method: 'POST',
-		    type: 'POST',
-			success:function(resp){
-				if(resp == 1){
-					alert_toast('Data successfully saved.',"success");
-					setTimeout(function(){
-						location.replace('profile')
-					},750)
-				}else if(resp == 2){
-					$('#msg').html("<div class='alert alert-danger' role='alert'>Email already exist.</div>");
-					$('[name="email_add"]').addClass("border-danger");
-					end_load()
-				}
-			}
-		})
-	});
-    $('#manage_gcash_donation').submit(function(e){
-        
-		e.preventDefault()
-		$('input').removeClass("border-danger")
-		start_load()
-		$('#msg').html('')
-        
-		$.ajax({
-			url:'ajax.php?action=save_gcash_donate',
-			data: new FormData($(this)[0]),
-		    cache: false,
-		    contentType: false,
-		    processData: false,
-		    method: 'POST',
-		    type: 'POST',
-			success:function(resp){
-				if(resp == 1){
-					alert_toast('Data successfully saved.',"success");
-					setTimeout(function(){
-						location.replace('profile')
-					},750)
-				}else if(resp == 2){
-					$('#msg').html("<div class='alert alert-danger' role='alert'>Email already exist.</div>");
-					$('[name="email_add"]').addClass("border-danger");
-					end_load()
-				}
-			}
-		})
-	})
-</script>
+
