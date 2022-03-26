@@ -14,6 +14,7 @@ ob_end_flush();
 ?>
 <?php 
 if(isset($_SESSION['login_id']))
+if(isset($_SESSION['login_account_id']))
 // header("location:home");
 ?>
 <?php include 'header.php' ?>
@@ -21,8 +22,8 @@ if(isset($_SESSION['login_id']))
 <!-- login area -->
 <section id="login" class="pt-5 mt-5">
     <div class="container mx-auto  login-form-height" >
-        <div class="col-lg-12 text-center">
-            <legend class="text-lavander text-center fw-bold">Login</legend>
+        <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+            <legend class="text-lavander text-center fw-bold hide">Login</legend>
             <div class="d-flex justify-content-center align-items-center">                
                 <form action="login" method="post" enctype="multipart/form-data" id="login-form">
                     <div class="form-row lavander-form">

@@ -25,7 +25,7 @@
                                     <textarea style="height:30vh" type="text" value="<?php if(isset($_POST['message'])) echo $_POST['lastname'];  ?>" name="message" class="text-center form-control my-3" id="validationDefault03" placeholder="Write Message here*" required></textarea>
                                 </div>
                                 <div class="col-md-12 align-center ">
-                                    <a href="<?php base() ?>thankyou" class="btn btn-lavander text-uppercase align-items-center justify-content-center" style="padding:4px; margin:0px;" type="submit" name="submit">SEND <i class="fas fa-paper-plane"></i>
+                                    <a href="./index.php?page=thankyou" class="btn btn-lavander text-uppercase align-items-center justify-content-center" style="padding:4px; margin:0px;" type="submit" name="submit">SEND <i class="fas fa-paper-plane"></i>
                                 </a>                             
                                 </div>
                             </div>

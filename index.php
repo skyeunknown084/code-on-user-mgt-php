@@ -11,6 +11,11 @@ if(!isset($_SESSION['system'])){
     foreach($system as $k => $v){
     $_SESSION['system'][$k] = $v;
     }
+}else {
+    $system = $conn->query("SELECT * FROM system_settings")->fetch_array();
+    foreach($system as $k => $v){
+    $_SESSION['system'][$k] = $v;
+    }
 }
 // Get User Datas
 ob_end_flush();

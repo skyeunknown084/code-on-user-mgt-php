@@ -4,8 +4,8 @@ if($_SESSION['login_type'] != 1)
   $twhere = "  ";
 ?>
 <?php 
-if(isset($_GET['id'])){
-	$qry = $conn->query("SELECT * FROM users where id = ".$_GET['id'])->fetch_array();
+if(!isset($_GET['account_id'])){
+	$qry = $conn->query("SELECT * FROM users u INNER JOIN accounts a where account_id = ".$_GET['account_id'])->fetch_array();
 	foreach($qry as $k => $v){
 		$$k = $v;
 	}
@@ -18,21 +18,11 @@ if(isset($_GET['id'])){
         $where = " where id = '{$_SESSION['login_id']}' ";
     }elseif($_SESSION['login_type'] == 2){
         $where = " where id = '{$_SESSION['login_id']}' ";
+    }else{
+        $where = " where a.account_id = '{$_SESSION['login_account_id']}' ";
     }
 ?>
 <?php if($_SESSION['login_type'] == 2) { ?>
-    
-
-<?php
-// query data
-// $user = array();
-// if(isset($_SESSION['id'])){
-//     echo $_SESSION['id'];
-//     $user = get_user_info($conn, $_SESSION['id']);
-//     print_r($user['firstname']);
-//     print_r($user['lastname']);
-// }
-?>
 
 <section class="py-5 my-5">
     <div class="overlay overlay-bg bg-aquamarine"></div>
@@ -47,7 +37,7 @@ if(isset($_GET['id'])){
         <hr class="mt-0"/>
         <?php
             $id = $_SESSION['login_id'];
-            $qry = $conn->query("SELECT firstname,d_firstname,d_lastname,d_birthdate,d_date_of_death,d_goal_amount,d_summary,avatar FROM users t1 INNER JOIN accounts t2 on t1.id = t2.user_id where t1.id = $id");
+            $qry = $conn->query("SELECT * FROM users u INNER JOIN accounts a on u.id = a.user_id $where ");
             if($row= $qry->fetch_assoc()):
             $bdate = $row['d_birthdate'];
             $dod = $row['d_date_of_death'];

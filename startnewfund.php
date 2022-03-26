@@ -112,6 +112,11 @@ if(isset($_GET['id'])){
     </div>
     
 </section>
+<?php } else { ?>
+    <?php
+    if(isset($_SESSION['login_id']))
+    header("location:home");
+    ?>
 <?php } ?>
 
 <style>
