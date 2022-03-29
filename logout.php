@@ -4,7 +4,7 @@ function logout(){
     foreach ($_SESSION as $key => $value) {
         unset($_SESSION[$key]);
     }
-    header("location:login");
+    header("location:index.php?page=login");
 }
 logout();
 ?>

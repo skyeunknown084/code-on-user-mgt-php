@@ -28,7 +28,7 @@ ob_end_flush();
     <header class="default-header">
         <nav class="navbar navbar-expand-lg navbar-light bg-white bb-aquamarine d-flex fixed-top nav-shadow">
             <div class="container-fluid">
-                <a class="navbar-brand nav-brand-box ms-2" href="<?php base() ?>home"><span class="text-aquamarine text-underline fw-700 fs-larger ms-2">
+                <a class="navbar-brand nav-brand-box ms-2" href="./index.php?page=home"><span class="text-aquamarine text-underline fw-700 fs-larger ms-2">
                 <?php echo ucwords($_SESSION['system']['name']) ?>
                 </span></a>
                 <button class="navbar-toggler ms-auto" type="button" data-toggle="collapse" data-target="#toggleNavbar" aria-controls="toggleNavbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,27 +41,13 @@ ob_end_flush();
     <!-- end header Area -->
     <!-- start section Area -->    
     <?php
-        // get base folder and index
-        function base() {
-            echo str_replace("index.php","", $_SERVER['PHP_SELF']);
-        }
-        $URL = explode("/", $_SERVER['QUERY_STRING']);
-        // echo '<pre>';
-        // print_r($URL);
-        // print_r(str_replace("index.php","", $_SERVER['PHP_SELF']).$URL[0]);
-        if(file_exists($URL[0] . ".php")){
-            
-            include($URL[0] . ".php");
-        }
-        elseif('/') {
-            include("home.php");
-        }
-        elseif('') {
-            include("home.php");
-        }
-        else {
-            include("404.php");
-        }
+        $page = isset($_GET['page']) ? $_GET['page'] : 'home';
+            if(!file_exists($page.".php")){
+                include '404.html';
+            }else{
+            include $page.'.php';
+
+            }
     ?>
     <!-- end section Area -->
     

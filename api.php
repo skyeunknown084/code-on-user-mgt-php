@@ -17,7 +17,7 @@ Class Action {
 
 	function login(){
 		extract($_POST);
-		$qry = $this->db->query("SELECT *,concat(firstname,' ',lastname) as name FROM users where email = '".$email."' and password = '".md5($password)."'  ");
+		$qry = $this->db->query("SELECT *,concat(firstname,' ',lastname) as name FROM users u INNER JOIN accounts a where u.email = '".$email."' and u.password = '".md5($password)."'  ");
 		if($qry->num_rows > 0){
 			foreach ($qry->fetch_array() as $key => $value) {
 				if($key != 'password' && !is_numeric($key))
@@ -34,7 +34,7 @@ Class Action {
 		foreach ($_SESSION as $key => $value) {
 			unset($_SESSION[$key]);
 		}
-		header("location:home");
+		header("location:index.php?page=home");
 	}
 
 	function save_user(){

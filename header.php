@@ -24,6 +24,7 @@
     <!-- DateTimePicker -->
     <link rel="stylesheet" href="assets/dist/css/jquery.datetimepicker.min.css">
     <!-- Theme style -->
+    <!-- <link rel="stylesheet" href="assets/dist/css/bs/bootstrap.css"> -->
     <link rel="stylesheet" href="assets/dist/css/custom.css">
     <link rel="stylesheet" href="assets/dist/css/main.css">
     <link rel="stylesheet" href="assets/dist/css/style.css">    

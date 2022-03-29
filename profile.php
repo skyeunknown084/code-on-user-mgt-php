@@ -4,8 +4,8 @@ if($_SESSION['login_type'] != 1)
   $twhere = "  ";
 ?>
 <?php 
-if(!isset($_GET['account_id'])){
-	$qry = $conn->query("SELECT * FROM users u INNER JOIN accounts a where account_id = ".$_GET['account_id'])->fetch_array();
+if(!isset($_GET['id'])){
+	$qry = $conn->query("SELECT * FROM accounts WHERE user_id = ".$_GET['id'])->fetch_array();
 	foreach($qry as $k => $v){
 		$$k = $v;
 	}
@@ -36,8 +36,8 @@ if(!isset($_GET['account_id'])){
         </div>
         <hr class="mt-0"/>
         <?php
-            $id = $_SESSION['login_id'];
-            $qry = $conn->query("SELECT * FROM users u INNER JOIN accounts a on u.id = a.user_id $where ");
+            $id = $_GET['id'];
+            $qry = $conn->query("SELECT * FROM users u INNER JOIN accounts a on u.id = a.user_id where a.user_is = '$id'");
             if($row= $qry->fetch_assoc()):
             $bdate = $row['d_birthdate'];
             $dod = $row['d_date_of_death'];
@@ -45,7 +45,7 @@ if(!isset($_GET['account_id'])){
         ?>
         <div class="row">
             <div class="col-lg-7">
-                
+                <h1><?php echo $_SESSION['acct_id']; ?></h1>
                 <legend for="" class="fw-bold text-lavander text-center">
                     <?php if(isset($row['d_firstname'])){ printf('%s %s', $row['d_firstname'], $row['d_lastname']); } ?>
                 </legend>
@@ -53,7 +53,7 @@ if(!isset($_GET['account_id'])){
                 <?php echo date("M d, Y",strtotime($bdate)) ?> - <?php echo date("M d, Y",strtotime($dod)) ?>
                 </p>
                 <div class="card p-0 bg-solid-silver">
-                    <a target="_blank" class="mx-auto"><img class="img-fluid avatar-profile" src="<?php base() ?>/assets/uploads/<?php echo $row['avatar'] ?>" alt=""> </a>
+                    <a target="_blank" class="mx-auto"><img class="img-fluid avatar-profile" src="assets/uploads/<?php echo $row['avatar'] ?>" alt=""> </a>
                 </div>
                 <div class="col-lg-12 py-3 px-2">
                     <label for="goal-raised-progress" class="fs-larger"><span class="larger fw-700">₱5000.00</span> raised over ₱<?php echo number_format($goal_amount, 2, '.', ',');?> goal</label>
@@ -90,38 +90,13 @@ if(!isset($_GET['account_id'])){
                     </h2>
                     <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
                     <div class="accordion-body">
-                    <?php if(isset($row['d_summary'])){ printf('%s %s', $row['d_summary'], $row['d_summary']); } ?>
+                    <?php if(isset($row['d_summary'])){ printf('%s', $row['d_summary']); } ?>
                     </div>
                     </div>
                 </div>
             </div>                                  
         </div>
         <?php endif ?>
-    </div>
-</section>
-    
-<?php } else { ?>
-    
-    <section class="py-5 mt-5" id="">
-    <?php
-        $qry = $conn->query("SELECT * FROM accounts $where order by id asc");
-        $row= $qry->fetch_assoc()
-    ?>
-    <div class="container py-5">
-        <div class="row banner-content fullscreen align-items-center justify-content-start pb-4">
-            <div class=" col-lg-7 col-md-6 col-sm-12 p-0 mb-4">
-                <div class="col-lg-12 pt-5 ps-5">
-                    <h2>Welcome to <div class="text-aquamarine text-underline fw-900 pb-4"><span class="text-lavander">Abuloy</span></div></h2>
-                    <div class="pe-5 pt-0"><h4 class="pe-5 pt-0 mt-0">Your can now help your love ones to raised a fund.</h4></div>
-                    <a href="<?php base() ?>startnewfund" class="btn btn-lavander btn-round text-uppercase" id="showFundForm">Start A Fund Now <i class="fas fa-chevron-right"></i><i class="fas fa-chevron-right"></i> </a>
-                </div>                             
-            </div>
-            <div class="banner-img-container row align-items-center col-lg-5 col-md-6 col-sm-12 pt-5 pb-100 m-0" id="fundForm">
-                <div class="col-lg-12 img-banner img-fluid pb-5 m-0 bg-white">
-                    <img src="<?php base() ?><?php echo $row['avatar']; ?>" alt="" style="height:55vh !important;">
-                </div>
-            </div> 
-        </div>
     </div>
 </section>
 

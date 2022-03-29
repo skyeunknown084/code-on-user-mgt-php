@@ -37,7 +37,7 @@ if(isset($_SESSION['login_account_id']))
                     <div class="submit-btn text-center mb-5">
                         <button type="submit" name="login_account" class="btn btn-lavander text-white text-uppercase fs-large py-2 rounded-pill text-dark px-5">Login</button>
                     </div>
-                    <small class="text-blackish">If you don't have any account? <a href="<?php base() ?>register" class="no-style text-lavander">Sign-up</a></small>
+                    <small class="text-blackish">If you don't have any account? <a href="./index.php?page=register" class="no-style text-lavander">Sign-up</a></small>
                     <!-- <div class="gfm-embed" data-url="https://www.gofundme.com/f/ukraine-humanitarian-fund/widget/large/"></div>
                     <script defer src="https://www.gofundme.com/static/js/embed.js"></script> -->
                 </form>
@@ -66,7 +66,7 @@ if(isset($_SESSION['login_account_id']))
         },
         success:function(resp){
           if(resp == 1){
-            location.href ='home';
+            location.href ='index.php?page=home';
           }else{
             $('#login-form').prepend('<div class="alert alert-danger">Username or password is incorrect.</div>')
             end_load();

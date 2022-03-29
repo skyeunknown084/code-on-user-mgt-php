@@ -25,7 +25,7 @@ if(isset($_GET['id'])){
     <section class="py-5" id="">
         <div class="container pt-4">
             <legend class="align-right pt-4 pb-4 text-lavander">
-                <a href="<?php base() ?>startnewfund" class="btn btn-lavander px-3 py-1"> <i class="fas fa-plus"></i> Create New Fund</a>
+                <a href="./index.php?page=startnewfund" class="btn btn-lavander px-3 py-1"> <i class="fas fa-plus"></i> Create New Fund</a>
             </legend>
             <div class="align-center col-lg-12 py-1">
                 <div class="col-lg-8 align-left">
@@ -53,8 +53,11 @@ if(isset($_GET['id'])){
             <div class="row d-flex p-0">
                 <?php
                     $id = $_SESSION['login_id'];
-                    $qry = $conn->query("SELECT firstname,concat(d_firstname,' ',d_lastname) as name,d_birthdate,d_date_of_death,d_goal_amount,d_summary,avatar FROM accounts t1 INNER JOIN users t2 on t2.id = t1.user_id where t2.id = $id");
+                    
+                    $qry = $conn->query("SELECT *,concat(d_firstname,' ',d_lastname) as name FROM accounts a INNER JOIN users u on u.id = a.user_id where a.user_id = '$id'");
                     while($row= $qry->fetch_assoc()):
+                        $_SESSION['user_id'] = $row['user_id'];
+                        $_SESSION['acct_id'] = $row['id'];
                     $bdate = $row['d_birthdate'];
                     $dod = $row['d_date_of_death'];
                     $goal_amount = $row['d_goal_amount'];
@@ -63,11 +66,11 @@ if(isset($_GET['id'])){
                 <div class="col-md-3 p-0 ps-0 pe-5 pb-4">
                     <div class="card p-0 ">
                         <div class="card-body p-0 donee-photo">
-                            <a target="_blank" href="<?php base() ?>profile" onclick=""><img src="<?php base() ?>/assets/uploads/<?php echo $row['avatar'] ?>" alt="" style="width:100%; height: 300px;"></a>
+                            <a target="_blank" href="./index.php?page=profile&id=<?php echo $_SESSION['user_id'] ?>" data-id="<?php echo $_SESSION['user_id'] ?>"><img src="assets/uploads/<?php echo $row['avatar'] ?>" alt="" style="width:100%; height: 300px;"></a>
                         </div>
                         <div class="card-footer pb-3 text-center">
                             <div class="desc p-0"><b><?php echo ucwords($row['name']) ?></b><br><?php echo date("M d, Y",strtotime($bdate)) ?> - <?php echo date("M d, Y",strtotime($dod)) ?></div>
-                            <div class="desc p-0"><a href="<?php base() ?>donate" class="align-center btn btn-lavander p-2">Donate Now</a></div>
+                            <div class="desc p-0"><a href="./index.php?page=donate&id=<?php echo $_SESSION['acct_id'] ?>" data-id="<?php echo $_SESSION['acct_id'] ?>" class="align-center btn btn-lavander p-2">Donate Now</a></div>
                         </div>
                         <h6 class="price-raised text-center text-purple"><b>₱100.00</b> raised over <b>₱<?php echo number_format($goal_amount, 2, '.', ',');?></b></h6>
                         <div class="progress">
@@ -94,7 +97,7 @@ if(isset($_GET['id'])){
                 <div class="col-lg-12 pt-5 ps-5">
                     <h2>Welcome to <div class="text-aquamarine text-underline fw-900 pb-4"><span class="text-lavander">Abuloy</span></div></h2>
                     <div class="pe-5 pt-0"><h4 class="pe-5 pt-0 mt-0">Your can now help your love ones to raised a fund.</h4></div>
-                    <a href="<?php base() ?>startnewfund" class="btn btn-lavander btn-round text-uppercase" id="showFundForm">Start A Fund Now <i class="fas fa-chevron-right"></i><i class="fas fa-chevron-right"></i> </a>
+                    <a href="./index.php?page=startnewfund" class="btn btn-lavander btn-round text-uppercase" id="showFundForm">Start A Fund Now <i class="fas fa-chevron-right"></i><i class="fas fa-chevron-right"></i> </a>
                 </div>                             
             </div>
             <div class="banner-img-container row align-items-center col-lg-5 col-md-6 col-sm-12 pt-5 pb-100 m-0" id="fundForm">
