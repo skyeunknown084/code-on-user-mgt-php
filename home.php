@@ -17,15 +17,15 @@ if($_SESSION['login_type'] != 1)
     if($_SESSION['login_type'] == 1){
         $where = " where id = '{$_SESSION['login_id']}' ";
     }elseif($_SESSION['login_type'] == 2){
-        $where = " where id = '{$_SESSION['login_id']}' ";
+        $where = " where user_id = '{$_SESSION['login_user_id']}' ";
     }
 ?>
 <?php if($_SESSION['login_type'] == 2) { ?>
     
 <section class="py-5" id="">
     <?php
-        $id = $_SESSION['login_id'];
-        $qry = $conn->query("SELECT * FROM users u INNER JOIN accounts a on u.id = a.user_id where a.user_id = '$id'");
+        // $id = $_SESSION['login_id'];
+        $qry = $conn->query("SELECT * FROM users u INNER JOIN accounts a on u.id = a.user_id $where");
         $row= $qry->fetch_assoc()
     ?>
     <div class="container py-5">

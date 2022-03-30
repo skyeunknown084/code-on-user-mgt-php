@@ -18,11 +18,8 @@ if(isset($_GET['id'])){
     if($_SESSION['login_type'] == 1){
         $where = " where id = '{$_SESSION['login_id']}' ";
     }elseif($_SESSION['login_type'] == 2){
-        $where = " where id = '{$_SESSION['login_id']}' ";
+        $where = " where user_id = '{$_SESSION['login_user_id']}' ";
     }
-     
-    
-
 ?>
 <section class="pt-3" id="">
     
@@ -41,9 +38,15 @@ if(isset($_GET['id'])){
                     <a class="text-blackish-lavander btn-r-square px-3 nav-link" href="./index.php?page=startnewfund">Start A New Fund <span class="sr-only">(Start A Fund)</span></a>
                 </li>
             <?php } ?>
+            <?php if($_SESSION['login_type'] == 2) { ?>
+            <li class="nav-item">
+                <a class="text-blackish-lavander btn-r-square px-3 nav-link" href="./index.php?page=profile_list">Donate <span class="sr-only">(Donate)</span></a>
+            </li>
+            <?php } else { ?>
             <li class="nav-item">
                 <a class="text-blackish-lavander btn-r-square px-3 nav-link" href="./index.php?page=donees">Donate <span class="sr-only">(Donate)</span></a>
             </li>
+            <?php } ?>
             <li class="nav-item">
                 <a class="text-blackish-lavander btn-r-square px-3 nav-link" href="./index.php?page=contact">Contact <span class="sr-only">(Contact)</span></a>
             </li>
@@ -51,7 +54,7 @@ if(isset($_GET['id'])){
             <?php if($_SESSION['login_type'] == 2) { ?>
             <div class="btn-group btn-lg pt-1">
                 <button type="button" class="btn btn-lavander btn-round btn-sm py-1 px-3 dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <span class="text-aquamarine" style="font-size:16px"><?php echo ucwords($_SESSION['login_id']) ?> : <?php echo ucwords($_SESSION['login_firstname']) ?> </span>
+                    <span class="text-aquamarine" style="font-size:16px"><?php echo ucwords($_SESSION['login_user_id']) ?> : <?php echo ucwords($_SESSION['login_firstname']) ?> </span>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end mt-5">
                     <li><a class="dropdown-item" type="button" href="./index.php?page=profile_list">My Abuloys</a></li>

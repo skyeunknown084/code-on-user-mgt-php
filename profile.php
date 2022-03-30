@@ -17,7 +17,7 @@ if(!isset($_GET['id'])){
     if($_SESSION['login_type'] == 1){
         $where = " where id = '{$_SESSION['login_id']}' ";
     }elseif($_SESSION['login_type'] == 2){
-        $where = " where id = '{$_SESSION['login_id']}' ";
+        $where = " where a.user_id = '{$_SESSION['login_user_id']}' ";
     }else{
         $where = " where a.account_id = '{$_SESSION['login_account_id']}' ";
     }
@@ -29,15 +29,15 @@ if(!isset($_GET['id'])){
     <div class="container">
         <div class="row">
             <div class="col-12 align-right pt-4 pb-2">
-                <a href="profile_list" type="button" class="btn btn-lavander px-3 py-2">
-                    <i class="fa fa-users pe-1 text-aquamarine"></i>  View Other Funds 
+                <a href="./index.php?page=profile_list" type="button" class="btn btn-lavander px-3 py-2">
+                    <i class="fa fa-arrow-left pe-1 text-aquamarine"></i>  Back 
                 </a>
             </div>
         </div>
         <hr class="mt-0"/>
         <?php
             $id = $_GET['id'];
-            $qry = $conn->query("SELECT * FROM users u INNER JOIN accounts a on u.id = a.user_id where a.user_is = '$id'");
+            $qry = $conn->query("SELECT * FROM accounts a INNER JOIN users u ON(a.user_id = u.id) WHERE a.id =".$id);
             if($row= $qry->fetch_assoc()):
             $bdate = $row['d_birthdate'];
             $dod = $row['d_date_of_death'];
@@ -56,10 +56,10 @@ if(!isset($_GET['id'])){
                     <a target="_blank" class="mx-auto"><img class="img-fluid avatar-profile" src="assets/uploads/<?php echo $row['avatar'] ?>" alt=""> </a>
                 </div>
                 <div class="col-lg-12 py-3 px-2">
-                    <label for="goal-raised-progress" class="fs-larger"><span class="larger fw-700">₱5000.00</span> raised over ₱<?php echo number_format($goal_amount, 2, '.', ',');?> goal</label>
+                    <label for="goal-raised-progress" class="fs-larger"><span class="larger fw-700">₱0.00</span> raised over ₱<?php echo number_format($goal_amount, 2, '.', ',');?> goal</label>
                     <div class="col-lg-12 align-center mx-auto p-0">                    
                         <div style="height: 25px; width:100%; background-color: rgba(148,247,207,0.55);border-radius:25px;">
-                            <div class="mh-100 px-5 text-aquamarine text-center" style="width: 50%; height: 100px; background-color: rgba(162,101,230,0.8);border-radius:25px;font-size:17px;"> 50% </div>
+                            <div class="mh-100 px-5 text-aquamarine text-center" style="width: 0%; height: 100px; background-color: rgba(162,101,230,0.8);border-radius:25px;font-size:17px;"> 0% </div>
                         </div>
                     </div> 
                 </div>

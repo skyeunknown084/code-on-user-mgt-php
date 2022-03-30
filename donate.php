@@ -3,46 +3,41 @@ $twhere ="";
 if($_SESSION['login_type'] != 1)
   $twhere = "  ";
 ?>
-<?php 
-if(isset($_GET['account_id'])){
-	$qry = $conn->query("SELECT * FROM accounts where id = ".$_GET['account_id'])->fetch_array();
-	foreach($qry as $k => $v){
-		$$k = $v;
-	}
-}
-if(isset($_GET['acct_id'])){
-	$qry = $conn->query("SELECT * FROM accounts where id = ".$_GET['acct_id'])->fetch_array();
-	foreach($qry as $k => $v){
-		$$k = $v;
-	}
-}
-?>
+
 <?php 
     // switch between admin(1) and user(2)
     $where = "";
     if($_SESSION['login_type'] == 1){
         $where = " where id = '{$_SESSION['login_id']}' ";
     }elseif($_SESSION['login_type'] == 2){
-        $where = " where id = '{$_SESSION['login_id']}' ";
+        $where = " where user_id = '{$_SESSION['login_user_id']}' ";
     }
 ?>
 <?php if($_SESSION['login_type'] == 2) { ?>
-    
-
+<?php 
+if(isset($_GET['id'])){
+	$qry = $conn->query("SELECT * FROM accounts a INNER JOIN users u ON(a.user_id = u.id) where a.user_id = ".$_GET['id'])->fetch_array();
+	foreach($qry as $k => $v){
+		$$k = $v;
+	}
+}
+?>    
+<!-- For Users with Account Registered and have Funds to Raise -->
 <section class="py-5 my-5">
     <div class="overlay overlay-bg bg-aquamarine"></div>
     <div class="container">
         <div class="row">
             <div class="col-12 align-right pt-4 pb-2">
                 <a href="./index.php?page=profile_list" type="button" class="btn btn-lavander px-3 py-2">
-                    <i class="fa fa-users pe-1 text-aquamarine"></i>  View Other Funds 
+                    <i class="fa fa-users pe-1 text-aquamarine"></i>  View Other Donees 
                 </a>
             </div>
         </div>
         <hr class="mt-0"/>
         <?php
-            $account_id = $_GET['id'];
-            $qry = $conn->query("SELECT * FROM accounts where id = '$account_id'" );
+            $user_id = $_SESSION['login_id'];
+            $acct_id = $_GET['id'];
+            $qry = $conn->query("SELECT * FROM accounts where id =" .$acct_id);
             if($row= $qry->fetch_assoc()):
             $bdate = $row['d_birthdate'];
             $dod = $row['d_date_of_death'];
@@ -58,7 +53,7 @@ if(isset($_GET['acct_id'])){
                 <?php echo date("M d, Y",strtotime($bdate)) ?> - <?php echo date("M d, Y",strtotime($dod)) ?>
                 </p>
                 <div class="card p-0 bg-solid-silver">
-                    <a target="_blank" class="mx-auto"><img class="img-fluid avatar-profile" src="./index.php?page=/assets/uploads/<?php echo $row['avatar'] ?>" alt=""> </a>
+                    <a target="_blank" class="mx-auto"><img class="img-fluid avatar-profile" src="assets/uploads/<?php echo $row['avatar'] ?>" alt=""> </a>
                 </div>
                 <div class="col-lg-12 py-3 px-2">
                     <label for="goal-raised-progress" class="fs-larger"><span class="larger fw-700">₱5000.00</span> raised over ₱<?php echo number_format($goal_amount, 2, '.', ',');?> goal</label>
@@ -120,7 +115,7 @@ if(isset($_GET['acct_id'])){
                     </h2>
                     <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
                     <div class="accordion-body">
-                    <?php if(isset($row['d_summary'])){ printf('%s %s', $row['d_summary'], $row['d_summary']); } ?>
+                        <?php if(isset($row['d_summary'])){ printf('%s', $row['d_summary']); } ?>
                     </div>
                     </div>
                 </div>
@@ -129,9 +124,11 @@ if(isset($_GET['acct_id'])){
         <?php endif ?>
     </div>
 </section>
+
     
 <?php } else { ?>
-    
+
+<!-- For Donators with No Account or Fund to Raise -->
 <section class="py-5 my-5">
     <div class="overlay overlay-bg bg-aquamarine"></div>
     <div class="container">
@@ -223,7 +220,7 @@ if(isset($_GET['acct_id'])){
                     </h2>
                     <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
                     <div class="accordion-body">
-                    <?php if(isset($row['d_summary'])){ printf('%s %s', $row['d_summary'], $row['d_summary']); } ?>
+                    <?php if(isset($row['d_summary'])){ printf('%s', $row['d_summary']); } ?>
                     </div>
                     </div>
                 </div>
