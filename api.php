@@ -110,8 +110,8 @@ Class Action {
 
 	function save_user_gcash_donate(){
 		extract($_POST);
-		// $data = "";
-		$check = $this->db->query("SELECT * FROM gcash_payments g INNER JOIN accounts a ON(g.account_id = a.id) where a.user_id ='$user_id'  ".(!empty($id) ? " and id != {$id} " : ''))->num_rows;
+		$user_id = "";
+		$check = $this->db->query("SELECT * FROM gcash_payments g INNER JOIN accounts a ON(g.account_id = a.id) where user_id = '$user_id'  ".(!empty($id) ? " and id != {$id} " : ''))->num_rows;
 		if($check > 0){
 			return 2;
 			exit;
