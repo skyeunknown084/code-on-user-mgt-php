@@ -103,7 +103,7 @@ if(isset($_GET['id'])){
                         <hr>
                         <div class="col-12 text-right justify-content-center d-flex">
                             <button type="submit" class="btn btn-primary me-2">Save</button>
-                            <button class="btn btn-secondary" type="button" onclick="location.href = '<?php base() ?>home'">Cancel</button>
+                            <button class="btn btn-secondary" type="button" onclick="location.href = './index.php?page=home'">Cancel</button>
                         </div>
                     </form>
                 </div>
@@ -156,7 +156,7 @@ if(isset($_GET['id'])){
 				if(resp == 1){
 					alert_toast('Data successfully saved.',"success");
 					setTimeout(function(){
-						location.replace('profile_list')
+						location.replace('index.php?page=home')
 					},750)
 				}else if(resp == 2){
 					$('#msg').html("<div class='alert alert-danger'>First Name already exist.</div>");

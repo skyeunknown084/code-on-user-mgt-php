@@ -97,7 +97,7 @@ Class Action {
 		}
 		
 		if(empty($id)){
-			$save = $this->db->query("INSERT INTO accounts (user_id, type, d_firstname, d_middlename, d_lastname, d_birthdate, d_date_of_death, d_summary, d_goal_amount, avatar) values ('$user_id','$type', '$d_firstname', '$d_middlename', '$d_lastname', '$d_birthdate', '$d_date_of_death', '$d_summary', '$d_goal_amount', '$avatar')");
+			$save = $this->db->query("INSERT INTO accounts (user_id, type, d_firstname, d_middlename, d_lastname, d_birthdate, d_date_of_death, d_summary, d_goal_amount, avatar) VALUES ('$user_id','$type', '$d_firstname', '$d_middlename', '$d_lastname', '$d_birthdate', '$d_date_of_death', '$d_summary', '$d_goal_amount', '$avatar')");
 		}else{
 			// $save = $this->db->query("UPDATE accounts set $data where id = $id");
 			echo "Insert query failed to create new data for this id !";
@@ -108,24 +108,25 @@ Class Action {
 		}
 	}	
 
-	// function save_my_donate(){
-	// 	extract($_POST);
-	// 	$data = "";
-	// 	$check = $this->db->query("SELECT * FROM gcash_payments where account_id ='$account_id' ".(!empty($id) ? " and id != {$id} " : ''))->num_rows;
-	// 	if($check > 0){
-	// 		return 2;
-	// 		exit;
-	// 	}
-	// 	if(empty($id)){
-	// 		$save = $this->db->query("INSERT INTO accounts set $data");
-	// 	}else{
-	// 		$save = $this->db->query("UPDATE accounts set $data where id = $id");
-	// 	}
+	function save_user_gcash_donate(){
+		extract($_POST);
+		$user_id = "";
+		$check = $this->db->query("SELECT * FROM gcash_payments g INNER JOIN accounts a ON(g.account_id = a.id) where user_id = '$user_id'  ".(!empty($id) ? " and id != {$id} " : ''))->num_rows;
+		if($check > 0){
+			return 2;
+			exit;
+		}
+		if(empty($id)){
+			$save = $this->db->query("INSERT INTO gcash_payments (account_id, user_type, gcash_amount, gcash_fee, gcash_abuloy_fee) VALUES ('$account_id', '$user_type', '$gcash_amount', '$gcash_fee', '$gcash_abuloy_fee')");
+		}else{
+			// $save = $this->db->query("UPDATE gcash_payments (account_id, user_type, gcash_amount, gcash_fee, gcash_abuloy_fee) VALUES ('$account_id', '$user_type', '$gcash_amount', '$gcash_fee', '$gcash_abuloy_fee') WHERE id = $id");
+			echo "Insert query failed to create new data for this id !";
+		}
 
-	// 	if($save){
-	// 		return 1;
-	// 	}
-	// }
+		if($save){
+			return 1;
+		}
+	}
 
 	// function save_gcash_donate(){
 	// 	extract($_POST);
