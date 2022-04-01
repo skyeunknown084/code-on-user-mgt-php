@@ -120,7 +120,7 @@ if(isset($_SESSION['login_user_id'])){
 		    type: 'POST',
 			success:function(resp){
 				if(resp == 1){
-					alert_toast('Data successfully saved.',"success");
+					// alert_toast('Data successfully saved.',"success");
 					setTimeout(function(){
 						location.replace('index.php?page=startnewfund')
 					},750)

@@ -36,6 +36,11 @@ if($action == 'save_user_gcash_donate'){
 	if($save)
 		echo $save;
 }
+if($action == 'save_gcash_donate'){
+	$save = $crud->save_gcash_donate();
+	if($save)
+		echo $save;
+}
 
 // end call
 ob_end_flush();
