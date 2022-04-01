@@ -128,6 +128,26 @@ Class Action {
 		}
 	}
 
+	function save_gcash_donate(){
+		extract($_POST);
+		$account_id = "";
+		$check = $this->db->query("SELECT * FROM gcash_payments where account_id = '$account_id'  ".(!empty($id) ? " and id != {$id} " : ''))->num_rows;
+		if($check > 0){
+			return 2;
+			exit;
+		}
+		if(empty($id)){
+			$save = $this->db->query("INSERT INTO gcash_payments (account_id, user_type, gcash_amount, gcash_fee, gcash_abuloy_fee) VALUES ('$account_id', '$user_type', '$gcash_amount', '$gcash_fee', '$gcash_abuloy_fee')");
+		}else{
+			// $save = $this->db->query("UPDATE gcash_payments (account_id, user_type, gcash_amount, gcash_fee, gcash_abuloy_fee) VALUES ('$account_id', '$user_type', '$gcash_amount', '$gcash_fee', '$gcash_abuloy_fee') WHERE id = $id");
+			echo "Insert query failed to create new data for this id !";
+		}
+
+		if($save){
+			return 1;
+		}
+	}
+
 	// function save_gcash_donate(){
 	// 	extract($_POST);
 	// 	$data = "";

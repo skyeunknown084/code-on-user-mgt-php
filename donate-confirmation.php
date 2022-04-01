@@ -74,51 +74,51 @@ if(isset($_GET['gcash_amount'])){
             
             <div class="col-lg-5 mt-lg-5 pt-lg-5">
                 <div class="card align-m p-10" style="padding:40px;">
-                    <div class="card-body">
-                        
+                    <div class="card-body">                        
                         <form action="" >
-                        <?php 
-                        $account_id = $_GET['id'];
-                        ?>
-                        <input type="hidden" name="account_id" id="account_id" value="<?php echo $account_id ?>">
-                        <input type="hidden" name="user_type" id="user_type" value="2">
-                        <input type="hidden" name="gcash_fee" id="gcash_fee" value="0.02">
-                        <input type="hidden" name="gcash_abuloy_fee" id="gcash_abuloy_fee" value="0.03">
-                        <label for="amount" class="d-flex text-lavander fw-800 justify-content-center fs-larger">Enter Amount</label>
-                        <p for="amount" class="text-black fs-small hide">A minimum of ₱ 25.00 and above is appreciated.</p>
-                        <div class="input-group mb-3 mt-3">
-
-                            
-                            <span class="input-group-text fw-bold fs-larger px-auto px-4">₱</span>
-                            <?php
-                                $account_id = $_GET['id'];
-                                $qry = $conn->query("SELECT * FROM gcash_payments g INNER JOIN accounts a ON(g.account_id = a.id) where g.account_id = $id order by g.id desc");
-                                if($row= $qry->fetch_assoc()):
-                                    $gcash_amount = $row['gcash_amount'];
+                            <?php 
+                            $account_id = $_GET['id'];
                             ?>
-                            <input type="number" name="gcash_amount" id="gcash_amount" value="<?php echo $gcash_amount ?>" class="form-control text-blackish amount-input fw-bold fs-larger py-0 px-auto text-center" aria-label="Amount (to the nearest peso)" style="height:60px;font-size:50px">
-                            <?php endif ?>
-                            <span class="input-group-text fw-bold fs-larger px-auto px-4">.00</span>
-                            <small id="msg"></small>
-                           
-                        </div>
-                        <!-- <a  href="" data-expiry="6" data-description="Payment for services rendered" data-href="https://getpaid.gcash.com/paynow" data-public-key="pk_d1def7eb7d0a89ba8df6b1a2aad5ca87" 
-                            onclick="this.href = this.getAttribute('data-href') 
+                            <input type="hidden" name="account_id" id="account_id" value="<?php echo $account_id ?>">
+                            <input type="hidden" name="user_type" id="user_type" value="2">
+                            <input type="hidden" name="gcash_fee" id="gcash_fee" value="0.02">
+                            <input type="hidden" name="customername" id="customername" value="John Doe">
+                            <input type="hidden" name="customeremail" id="customeremail" value="johndoe@gmail.com">
+                            <input type="hidden" name="customermobile" id="customermobile" value="09089879592">
+                            <input type="hidden" name="gcash_abuloy_fee" id="gcash_abuloy_fee" value="0.03">
+                            <label for="amount" class="d-flex text-lavander fw-800 justify-content-center fs-larger">You will donate an Amount of</label>
+                            
+                            <p for="amount" class="text-black fs-small hide">A minimum of ₱ 25.00 and above is appreciated.</p>
+                            <div class="input-group mb-3 mt-3">                            
+                                <span class="input-group-text fw-bold fs-larger px-auto px-4">₱</span>
+                                <?php
+                                    $account_id = $_GET['id'];
+                                    $qry = $conn->query("SELECT * FROM gcash_payments g INNER JOIN accounts a ON(g.account_id = a.id) where g.account_id = $id order by g.id desc");
+                                    if($row= $qry->fetch_assoc()):
+                                        $gcash_amount = $row['gcash_amount'];
+                                ?>
+                                <input type="number" name="gcash_amount" id="gcash_amount" value="<?php echo $gcash_amount ?>" class="form-control text-blackish amount-input fw-bold fs-larger py-0 px-auto text-center" aria-label="Amount (to the nearest peso)" style="height:60px;font-size:50px">
+                                <?php endif ?>
+                                <span class="input-group-text fw-bold fs-larger px-auto px-4">.00</span>
+                                <small id="msg"></small>                           
+                            </div>
+                            <div class="form-check py-2">
+                                <input type="checkbox" class="form-check-input" name="anonymous" id="anonymous">
+                                <label class="form-check-label pt-1 ps-2" for="anonymous">Make my donation anonymous</label>
+                            </div>
+                                <a data-fee="0" data-expiry="6" data-description="Payment for services rendered" data-href="https://getpaid.gcash.com/paynow" data-public-key="pk_d1def7eb7d0a89ba8df6b1a2aad5ca87" 
+                                onclick="this.href = this.getAttribute('data-href') 
                                     +'?public_key=' + this.getAttribute('data-public-key')
                                     +'&amp;amount=' + document.getElementById('gcash_amount').value
                                     +'&amp;fee=' + document.getElementById('gcash_amount').value * 0
                                     +'&amp;expiry='+this.getAttribute('data-expiry')
-                                    +'&amp;description=' + this.getAttribute('data-description');" target="_blank" 
-                                class="btn btn-lavander  fs-larger text-uppercase p-2 align-center" >
-                            DONATE
-                        </a> -->
-                        <a data-fee="0" data-expiry="6" data-description="Payment for services rendered" data-href="https://getpaid.gcash.com/paynow" data-public-key="pk_d1def7eb7d0a89ba8df6b1a2aad5ca87" 
-                            onclick="this.href = this.getAttribute('data-href') 
-                                +'?public_key=' + this.getAttribute('data-public-key')
-                                +'&amp;amount=' + document.getElementById('gcash_amount').value
-                                +'&amp;fee=' + document.getElementById('gcash_amount').value * 0
-                                +'&amp;expiry='+this.getAttribute('data-expiry')
-                                +'&amp;description=' + this.getAttribute('data-description');" href="https://getpaid.gcash.com/paynow?public_key=pk_d1def7eb7d0a89ba8df6b1a2aad5ca87&amp;amount=100&amp;fee=0&amp;expiry=6&amp;description=Payment for services rendered" target="_blank" class="btn btn-lavander  fs-larger text-uppercase p-2 align-center">donate</a>	
+                                    +'&amp;description=' + this.getAttribute('data-description')
+                                    +'&amp;customername=' + document.getElementById('customername').value
+                                    +'&amp;customeremail=' + document.getElementById('customeremail').value
+                                    +'&amp;customermobile=' + document.getElementById('customermobile').value;" target="_blank" class="btn btn-lavander  fs-larger text-uppercase p-2 align-center">
+                                    <img src="assets/img/gcash.png" height="60px"> Pay Now
+                                </a>
+                        </form>	
                     </div>
                 </div>
                 <div class="col-lg-2 mx-auto align-center py-1 px-1 col-lg-12 col-md-12 col-sm-12 mt-4 mb-0 fw-bold" style="height:20px"><p>OR</p></div>
@@ -198,29 +198,49 @@ if(isset($_GET['gcash_amount'])){
             <div class="col-lg-5 mt-lg-5 pt-lg-5">
                 <div class="card align-m p-10" style="padding:40px;">
                     <div class="card-body">
-                        <form action="" method="post" id="manage_gcash_donation"></form>
+                    <form action="" >
+                            <?php 
+                            $account_id = $_GET['id'];
+                            ?>
                             <input type="hidden" name="account_id" id="account_id" value="<?php echo $account_id ?>">
                             <input type="hidden" name="user_type" id="user_type" value="2">
                             <input type="hidden" name="gcash_fee" id="gcash_fee" value="0.02">
+                            <input type="hidden" name="customername" id="customername" value="John Doe">
+                            <input type="hidden" name="customeremail" id="customeremail" value="johndoe@gmail.com">
+                            <input type="hidden" name="customermobile" id="customermobile" value="09089879592">
                             <input type="hidden" name="gcash_abuloy_fee" id="gcash_abuloy_fee" value="0.03">
-                            <label for="amount" class="d-flex text-lavander fw-800 justify-content-center fs-larger">Enter Amount</label>
+                            <label for="amount" class="d-flex text-lavander fw-800 justify-content-center fs-larger">You will donate an Amount of</label>
+                            
                             <p for="amount" class="text-black fs-small hide">A minimum of ₱ 25.00 and above is appreciated.</p>
-                            <div class="input-group mb-3 mt-3">
+                            <div class="input-group mb-3 mt-3">                            
                                 <span class="input-group-text fw-bold fs-larger px-auto px-4">₱</span>
-                                <input type="number" name="gcash_amount" id="gcash_amount" class="form-control text-blackish amount-input fw-bold fs-larger py-0 px-auto text-center" aria-label="Amount (to the nearest peso)" style="height:60px;font-size:50px">
+                                <?php
+                                    $account_id = $_GET['id'];
+                                    $qry = $conn->query("SELECT * FROM gcash_payments where account_id = $account_id order by id desc");
+                                    if($row= $qry->fetch_assoc()):
+                                        $gcash_amount = $row['gcash_amount'];
+                                ?>
+                                <input type="number" name="gcash_amount" id="gcash_amount" value="<?php echo $gcash_amount ?>" class="form-control text-blackish amount-input fw-bold fs-larger py-0 px-auto text-center" aria-label="Amount (to the nearest peso)" style="height:60px;font-size:50px">
+                                <?php endif ?>
                                 <span class="input-group-text fw-bold fs-larger px-auto px-4">.00</span>
-                                <small id="msg"></small>
+                                <small id="msg"></small>                           
                             </div>
-                            <a type="submit" href="javascript:$('#manage_gcash_donation').submit();" data-expiry="6" data-description="Payment for services rendered" data-href="https://getpaid.gcash.com/paynow" data-public-key="pk_d1def7eb7d0a89ba8df6b1a2aad5ca87" 
+                            <div class="form-check py-2">
+                                <input type="checkbox" class="form-check-input" name="anonymous" id="anonymous">
+                                <label class="form-check-label pt-1 ps-2" for="anonymous">Make my donation anonymous</label>
+                            </div>
+                                <a data-fee="0" data-expiry="6" data-description="Payment for services rendered" data-href="https://getpaid.gcash.com/paynow" data-public-key="pk_d1def7eb7d0a89ba8df6b1a2aad5ca87" 
                                 onclick="this.href = this.getAttribute('data-href') 
                                     +'?public_key=' + this.getAttribute('data-public-key')
                                     +'&amp;amount=' + document.getElementById('gcash_amount').value
-                                    +'&amp;fee=' + document.getElementById('amount').value * 0
+                                    +'&amp;fee=' + document.getElementById('gcash_amount').value * 0
                                     +'&amp;expiry='+this.getAttribute('data-expiry')
-                                    +'&amp;description=' + this.getAttribute('data-description');" 
-                                    class="btn btn-lavander  fs-larger text-uppercase p-2 align-center" >
-                                DONATE
-                            </a>
+                                    +'&amp;description=' + this.getAttribute('data-description')
+                                    +'&amp;customername=' + document.getElementById('customername').value
+                                    +'&amp;customeremail=' + document.getElementById('customeremail').value
+                                    +'&amp;customermobile=' + document.getElementById('customermobile').value;" target="_blank" class="btn btn-lavander  fs-larger text-uppercase p-2 align-center">
+                                    <img src="assets/img/gcash.png" height="60px"> Pay Now
+                                </a>
                         </form>
                     </div>
                 </div>
@@ -254,13 +274,14 @@ if(isset($_GET['gcash_amount'])){
 
 <?php } ?>
 <script>
-function user_donation() {     
-    var txt;
-    if (confirm("Press a button!")) {
-        txt = "You pressed OK!";
-    } else {
-        txt = "You pressed Cancel!";
-    }
-    document.getElementById("demo").innerHTML = txt;
-}
+
+// function user_donation() {     
+//     var txt;
+//     if (confirm("Press a button!")) {
+//         txt = "You pressed OK!";
+//     } else {
+//         txt = "You pressed Cancel!";
+//     }
+//     document.getElementById("demo").innerHTML = txt;
+// }
 </script>
