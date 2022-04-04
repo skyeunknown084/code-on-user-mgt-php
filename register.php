@@ -2,8 +2,8 @@
 // if($_SERVER['REQUEST_METHOD'] == 'POST'){
 //     require ('register-process.php');
 // }
-if(isset($_SESSION['login_user_id'])){
-    header("location:index.php?page=login");
+if(isset($_SESSION['login_id'])){
+    header("location:login");
 }else {
     // header("location:startnewfund");
 }
@@ -65,7 +65,7 @@ if(isset($_SESSION['login_user_id'])){
                         </div>
                         <div class="col-lg-12 text-right justify-content-center d-flex mb-5">
                             <button type="submit" name="signin" class="btn btn-primary me-2">Continue</button>
-                            <button class="btn btn-secondary" type="button" onclick="location.href = './index.php?page=home'">Cancel</button>
+                            <button class="btn btn-secondary" type="button" onclick="location.href = '<?php base() ?>home'">Cancel</button>
                         </div>
                     </form>
                 </div>
@@ -122,7 +122,7 @@ if(isset($_SESSION['login_user_id'])){
 				if(resp == 1){
 					alert_toast('Data successfully saved.',"success");
 					setTimeout(function(){
-						location.replace('index.php?page=startnewfund')
+						location.replace('startnewfund')
 					},750)
 				}else if(resp == 2){
 					$('#msg').html("<div class='alert alert-danger'>Email already exist.</div>");
