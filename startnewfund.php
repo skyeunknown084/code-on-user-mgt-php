@@ -32,7 +32,7 @@ if(isset($_GET['id'])){
             <div class="card card-outline card-success">
                 <div class="card-body">
                     <form action="" id="create_new_account" class="lavander-form">
-                        <input type="hidden" name="id" value="<?php echo isset($id) ? $id : '' ?>">
+                    <input type="hidden" name="id" value="<?php echo isset($id) ? $id : '' ?>">
                         <div class="form-row col-md-12 mx-auto">
                             <div class="form-group hide" >
                                 <select class="form-control form-control-sm select2 hide" name="user_id" style="display:none;visibility:hidden;opacity:0"  required>
@@ -166,4 +166,30 @@ if(isset($_GET['id'])){
 			}
 		})
 	})
+    // $('#create_new_account').submit(function(e){
+	// 	e.preventDefault()
+	// 	$('input').removeClass("border-danger")
+	// 	start_load()
+	// 	$.ajax({
+	// 		url:'ajax.php?action=save_account2',
+	// 		data: new FormData($(this)[0]),
+	// 	    cache: false,
+	// 	    contentType: false,
+	// 	    processData: false,
+	// 	    method: 'POST',
+	// 	    type: 'POST',
+	// 		success:function(resp){
+	// 			if(resp == 1){
+	// 				// alert_toast('Data successfully saved.',"success");
+	// 				setTimeout(function(){
+	// 					location.replace('index.php?page=home')
+	// 				},750)
+	// 			}else if(resp == 2){
+	// 				$('#msg').html("<div class='alert alert-danger'>Account ID already exist.</div>");
+	// 				$('[name="account_id"]').addClass("border-danger")
+	// 				end_load()
+	// 			}
+	// 		}
+	// 	})
+	// })
 </script>

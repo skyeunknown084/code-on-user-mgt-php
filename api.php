@@ -84,6 +84,7 @@ Class Action {
 	function save_account(){
 		extract($_POST);
 		// $data = "";
+		// $user_id = '';
 		if(isset($_FILES['img']) && $_FILES['img']['tmp_name'] != ''){
 			$fname = strtotime(date('y-m-d H:i')).'_'.$_FILES['img']['name'];
 			$move = move_uploaded_file($_FILES['img']['tmp_name'],'assets/uploads/'. $fname);
@@ -98,6 +99,28 @@ Class Action {
 		
 		if(empty($id)){
 			$save = $this->db->query("INSERT INTO accounts (user_id, type, d_firstname, d_middlename, d_lastname, d_birthdate, d_date_of_death, d_summary, d_goal_amount, avatar) VALUES ('$user_id','$type', '$d_firstname', '$d_middlename', '$d_lastname', '$d_birthdate', '$d_date_of_death', '$d_summary', '$d_goal_amount', '$avatar')");
+		}else{
+			// $save = $this->db->query("UPDATE accounts set $data where id = $id");
+			echo "Insert query failed to create new data for this id !";
+		}
+
+		if($save){
+			return 1;
+		}
+	}
+
+	function save_account2(){
+		extract($_POST);
+		// $data = "";
+		// $user_id = '';
+		$check = $this->db->query("SELECT * FROM gcash_payments where id = '$id'".(!empty($id) ? " and id != {$id} " : ''))->num_rows;
+		if($check > 0){
+			return 2;
+			exit;
+		}
+		
+		if(empty($id)){
+			$save = $this->db->query("INSERT INTO gcash_payments (account_id, type, d_goal_amount) VALUES ('$account_id','$type', '$d_goal_amount')");
 		}else{
 			// $save = $this->db->query("UPDATE accounts set $data where id = $id");
 			echo "Insert query failed to create new data for this id !";
@@ -131,7 +154,7 @@ Class Action {
 	function save_gcash_donate(){
 		extract($_POST);
 		$account_id = "";
-		$check = $this->db->query("SELECT * FROM gcash_payments where account_id = '$account_id'  ".(!empty($id) ? " and id != {$id} " : ''))->num_rows;
+		$check = $this->db->query("SELECT * FROM gcash_payments g INNER JOIN accounts a ON(g.account_id = a.id) where account_id = '$account_id'  ".(!empty($id) ? " and id != {$id} " : ''))->num_rows;
 		if($check > 0){
 			return 2;
 			exit;

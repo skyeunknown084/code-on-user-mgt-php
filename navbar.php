@@ -40,7 +40,7 @@ if(isset($_GET['id'])){
             <?php } ?>
             <?php if($_SESSION['login_type'] == 2) { ?>
             <li class="nav-item">
-                <a class="text-blackish-lavander btn-r-square px-3 nav-link" href="./index.php?page=profile_list">Donate <span class="sr-only">(Donate)</span></a>
+                <a class="text-blackish-lavander btn-r-square px-3 nav-link" href="./index.php?page=donees">Donate <span class="sr-only">(Donate)</span></a>
             </li>
             <?php } else { ?>
             <li class="nav-item">

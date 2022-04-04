@@ -21,12 +21,12 @@ if(isset($_GET['id'])){
 		$$k = $v;
 	}
 }
-if(isset($_GET['gcash_amount'])){
-	$qry = $conn->query("SELECT * FROM accounts a INNER JOIN gcash_payments a ON(a.id = g.account_id) where g.gcash_amount = ".$_GET['gcash_amount'])->fetch_array();
-	foreach($qry as $k => $v){
-		$$k = $v;
-	}
-}
+// if(isset($_GET['gcash_amount'])){
+// 	$qry = $conn->query("SELECT * FROM accounts a INNER JOIN gcash_payments a ON(a.id = g.account_id) where g.gcash_amount = ".$_GET['gcash_amount'])->fetch_array();
+// 	foreach($qry as $k => $v){
+// 		$$k = $v;
+// 	}
+// }
 ?>    
 <!-- For Users with Account Registered and have Funds to Raise -->
 <section class="py-5 my-5">
@@ -95,9 +95,9 @@ if(isset($_GET['gcash_amount'])){
                                     $account_id = $_GET['id'];
                                     $qry = $conn->query("SELECT * FROM gcash_payments g INNER JOIN accounts a ON(g.account_id = a.id) where g.account_id = $id order by g.id desc");
                                     if($row= $qry->fetch_assoc()):
-                                        $gcash_amount = $row['gcash_amount'];
+                                        $gcash_user_amount = $row['gcash_amount'];
                                 ?>
-                                <input type="number" name="gcash_amount" id="gcash_amount" value="<?php echo $gcash_amount ?>" class="form-control text-blackish amount-input fw-bold fs-larger py-0 px-auto text-center" aria-label="Amount (to the nearest peso)" style="height:60px;font-size:50px">
+                                <input type="number" name="gcash_amount" id="gcash_amount" value="<?php echo $gcash_user_amount ?>" class="form-control text-blackish amount-input fw-bold fs-larger py-0 px-auto text-center" aria-label="Amount (to the nearest peso)" style="height:60px;font-size:50px">
                                 <?php endif ?>
                                 <span class="input-group-text fw-bold fs-larger px-auto px-4">.00</span>
                                 <small id="msg"></small>                           
@@ -216,7 +216,7 @@ if(isset($_GET['gcash_amount'])){
                                 <span class="input-group-text fw-bold fs-larger px-auto px-4">₱</span>
                                 <?php
                                     $account_id = $_GET['id'];
-                                    $qry = $conn->query("SELECT * FROM gcash_payments where account_id = $account_id order by id desc");
+                                    $qry = $conn->query("SELECT gcash_amount FROM gcash_payments where account_id = $account_id order by id desc");
                                     if($row= $qry->fetch_assoc()):
                                         $gcash_amount = $row['gcash_amount'];
                                 ?>

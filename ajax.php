@@ -31,6 +31,11 @@ if($action == 'save_account'){
 	if($save)
 		echo $save;
 }
+if($action == 'save_account2'){
+	$save2 = $crud->save_account2();
+	if($save2)
+		echo $save2;
+}
 if($action == 'save_user_gcash_donate'){
 	$save = $crud->save_user_gcash_donate();
 	if($save)

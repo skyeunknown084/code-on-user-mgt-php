@@ -75,9 +75,9 @@ if(isset($_GET['id'])){
                             <div class="desc p-0"><a href="./index.php?page=donate&id=<?php echo $row['id'] ?>" data-id="<?php echo $row['id'] ?>" class="align-center btn btn-lavander p-2">Donate Now</a></div>
                         </div>
                         <h6 class="price-raised text-center text-purple"><b>₱100.00</b> raised over <b>₱<?php echo number_format($goal_amount, 2, '.', ',');?></b></h6>
-                        <div class="progress">
+                        <div class="progress px-3 mx-0 py-0">
                             <div class="progress__fill"></div>
-                            <span class="progress__text text-center text-lavander">1%</span>
+                            <span class="progress__text text-center text-lavander">0%</span>
                         </div>
                     </div>                      
                     </div>
