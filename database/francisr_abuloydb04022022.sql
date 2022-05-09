@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `epiz_31255147_abuloydb`
+-- Database: `francisr_abuloydb`
 --
 
 -- --------------------------------------------------------
@@ -39,7 +39,7 @@ CREATE TABLE `accounts` (
   `d_goal_amount` text CHARACTER SET utf8mb4 NOT NULL,
   `d_summary` longtext CHARACTER SET utf8mb4 NOT NULL,
   `avatar` text NOT NULL,
-  `date_created` datetime NOT NULL DEFAULT current_timestamp()
+  `date_created` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -140,7 +140,7 @@ CREATE TABLE `users` (
   `password` text NOT NULL,
   `type` tinyint(1) NOT NULL DEFAULT 2 COMMENT '1 = admin, 2 = user',
   `phone_number` text NOT NULL,
-  `date_created` datetime NOT NULL DEFAULT current_timestamp()
+  `date_created` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
